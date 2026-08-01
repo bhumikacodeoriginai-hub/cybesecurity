@@ -7,6 +7,16 @@ import { lesson as L30 } from './L30-firewalls-configuration';
 import { lesson as L31 } from './L31-vpn-secure-tunneling';
 import { lesson as L32 } from './L32-ids-ips-systems';
 import { lesson as L33 } from './L33-wireshark-traffic-analysis';
+import { lesson as L34 } from './L34-network-attacks-mitm';
+import { lesson as L35 } from './L35-network-attacks-ddos';
+import { lesson as L36 } from './L36-intro-web-security';
+import { lesson as L37 } from './L37-sql-injection';
+import { lesson as L38 } from './L38-xss-attacks';
+import { lesson as L39 } from './L39-auth-vulnerabilities';
+import { lesson as L40 } from './L40-csrf-attacks';
+import { lesson as L41 } from './L41-ssrf-injection';
+import { lesson as L42 } from './L42-broken-access-control';
+import { lesson as L43 } from './L43-security-misconfigurations';
 
 export type LessonContent = {
   id: string;
@@ -49,6 +59,16 @@ export const lessons: Record<string, LessonContent> = {
   'vpn-secure-tunneling': L31 as unknown as LessonContent,
   'ids-ips-systems': L32 as unknown as LessonContent,
   'wireshark-traffic-analysis': L33 as unknown as LessonContent,
+  'network-attacks-mitm': L34 as unknown as LessonContent,
+  'network-attacks-ddos': L35 as unknown as LessonContent,
+  'intro-web-security': L36 as unknown as LessonContent,
+  'sql-injection': L37 as unknown as LessonContent,
+  'xss-attacks': L38 as unknown as LessonContent,
+  'auth-vulnerabilities': L39 as unknown as LessonContent,
+  'csrf-attacks': L40 as unknown as LessonContent,
+  'ssrf-injection': L41 as unknown as LessonContent,
+  'broken-access-control': L42 as unknown as LessonContent,
+  'security-misconfigurations': L43 as unknown as LessonContent,
 };
 
 // Get all lesson slugs
