@@ -10,7 +10,7 @@ export const lesson = {
   course: { title: 'Applied Cryptography', slug: 'applied-cryptography' },
   keyTerms: [
     'PKI', 'Certificate Authority', 'Root CA', 'Intermediate CA',
-    'CRL', 'OCSP', 'Certificate Transparency', 'Let\\'s Encrypt',
+    'CRL', 'OCSP', 'Certificate Transparency', "Let's Encrypt",
     'Key Escrow', 'Registration Authority', 'Trust Store'
   ],
   content: [
