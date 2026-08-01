@@ -1,10 +1,12 @@
 'use client';
 
 import { useState } from 'react';
+import { useParams } from 'next/navigation';
 import Link from 'next/link';
+import { getLessonBySlug } from '../../../../lib/lessons';
 
-// Demo lesson content
-const lessonData = {
+// Fallback demo lesson content (used when slug doesn't match any loaded lesson)
+const defaultLessonData = {
   title: 'The CIA Triad',
   slug: 'the-cia-triad',
   type: 'THEORY',
@@ -117,7 +119,12 @@ function ContentBlock({ block }: { block: any }) {
 
 export default function LessonPage() {
   const [completed, setCompleted] = useState(false);
-  const lesson = lessonData;
+  const params = useParams();
+  const slug = params?.slug as string;
+  
+  // Try to load from lesson library, fall back to demo
+  const dynamicLesson = slug ? getLessonBySlug(slug) : null;
+  const lesson = dynamicLesson || defaultLessonData;
 
   return (
     <div className="max-w-4xl mx-auto">
