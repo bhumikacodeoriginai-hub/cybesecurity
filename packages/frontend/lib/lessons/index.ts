@@ -1,5 +1,10 @@
 import { lesson as L01 } from './L01-what-is-cybersecurity';
 import { lesson as L02 } from './L02-cia-triad';
+import { lesson as L03 } from './L03-threats-vulns';
+import { lesson as L04 } from './L04-types-attackers';
+import { lesson as L05 } from './L05-security-frameworks';
+import { lesson as L06 } from './L06-careers';
+import { lesson as L07 } from './L07-setup-lab';
 import { lesson as L08 } from './L08-intro-linux';
 import { lesson as L09 } from './L09-linux-filesystem';
 import { lesson as L10 } from './L10-file-operations';
@@ -74,6 +79,11 @@ export type ContentBlock = {
 export const lessons: Record<string, LessonContent> = {
   'what-is-cybersecurity': L01 as unknown as LessonContent,
   'the-cia-triad': L02 as unknown as LessonContent,
+  'threats-vulnerabilities-risks': L03 as unknown as LessonContent,
+  'types-of-attackers': L04 as unknown as LessonContent,
+  'security-controls-frameworks': L05 as unknown as LessonContent,
+  'cybersecurity-careers': L06 as unknown as LessonContent,
+  'setting-up-security-lab': L07 as unknown as LessonContent,
   'intro-linux': L08 as unknown as LessonContent,
   'linux-filesystem': L09 as unknown as LessonContent,
   'linux-file-operations': L10 as unknown as LessonContent,
