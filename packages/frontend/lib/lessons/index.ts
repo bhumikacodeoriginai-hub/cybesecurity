@@ -17,6 +17,16 @@ import { lesson as L40 } from './L40-csrf-attacks';
 import { lesson as L41 } from './L41-ssrf-injection';
 import { lesson as L42 } from './L42-broken-access-control';
 import { lesson as L43 } from './L43-security-misconfigurations';
+import { lesson as L44 } from './L44-symmetric-encryption';
+import { lesson as L45 } from './L45-asymmetric-encryption';
+import { lesson as L46 } from './L46-hashing-integrity';
+import { lesson as L47 } from './L47-digital-signatures';
+import { lesson as L48 } from './L48-tls-ssl-security';
+import { lesson as L49 } from './L49-pki-infrastructure';
+import { lesson as L50 } from './L50-crypto-attacks-practices';
+import { lesson as L51 } from './L51-recon-information-gathering';
+import { lesson as L52 } from './L52-nmap-scanning';
+import { lesson as L53 } from './L53-vulnerability-assessment';
 
 export type LessonContent = {
   id: string;
@@ -69,6 +79,16 @@ export const lessons: Record<string, LessonContent> = {
   'ssrf-injection': L41 as unknown as LessonContent,
   'broken-access-control': L42 as unknown as LessonContent,
   'security-misconfigurations': L43 as unknown as LessonContent,
+  'symmetric-encryption': L44 as unknown as LessonContent,
+  'asymmetric-encryption': L45 as unknown as LessonContent,
+  'hashing-integrity': L46 as unknown as LessonContent,
+  'digital-signatures': L47 as unknown as LessonContent,
+  'tls-ssl-security': L48 as unknown as LessonContent,
+  'pki-infrastructure': L49 as unknown as LessonContent,
+  'crypto-attacks-practices': L50 as unknown as LessonContent,
+  'recon-information-gathering': L51 as unknown as LessonContent,
+  'nmap-scanning': L52 as unknown as LessonContent,
+  'vulnerability-assessment': L53 as unknown as LessonContent,
 };
 
 // Get all lesson slugs
