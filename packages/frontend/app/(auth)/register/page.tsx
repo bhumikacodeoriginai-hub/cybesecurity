@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { registerUser, saveSession } from '@/lib/auth';
 
 export default function RegisterPage() {
   const [form, setForm] = useState({
@@ -27,36 +28,33 @@ export default function RegisterPage() {
       return;
     }
 
-    setLoading(true);
-    try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api'}/auth/register`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          firstName: form.firstName,
-          lastName: form.lastName,
-          email: form.email,
-          password: form.password,
-        }),
-      });
-
-      const data = await res.json();
-
-      if (!data.success) {
-        setError(data.error || data.details?.[0]?.message || 'Registration failed');
-        return;
-      }
-
-      localStorage.setItem('accessToken', data.data.accessToken);
-      localStorage.setItem('refreshToken', data.data.refreshToken);
-      localStorage.setItem('user', JSON.stringify(data.data.user));
-
-      window.location.href = '/dashboard';
-    } catch (err) {
-      setError('Network error. Please try again.');
-    } finally {
-      setLoading(false);
+    if (form.password.length < 8) {
+      setError('Password must be at least 8 characters.');
+      return;
     }
+
+    setLoading(true);
+
+    // Small delay to simulate
+    await new Promise(resolve => setTimeout(resolve, 300));
+
+    // Use hardcoded registration
+    const result = registerUser({
+      firstName: form.firstName,
+      lastName: form.lastName,
+      email: form.email,
+      password: form.password,
+    });
+
+    if (!result.success || !result.user) {
+      setError(result.error || 'Registration failed');
+      setLoading(false);
+      return;
+    }
+
+    // Save session and redirect
+    saveSession(result.user);
+    window.location.href = '/dashboard';
   };
 
   return (
@@ -101,7 +99,7 @@ export default function RegisterPage() {
 
             <div>
               <label htmlFor="password" className="block text-sm font-medium text-dark-300 mb-1.5">Password</label>
-              <input id="password" name="password" type="password" value={form.password} onChange={handleChange} className="input-field" placeholder="Min 8 chars, uppercase, lowercase, number" required minLength={8} />
+              <input id="password" name="password" type="password" value={form.password} onChange={handleChange} className="input-field" placeholder="Min 8 characters" required minLength={8} />
             </div>
 
             <div>
@@ -120,6 +118,12 @@ export default function RegisterPage() {
               {loading ? 'Creating Account...' : 'Create Account'}
             </button>
           </form>
+
+          {/* Demo info */}
+          <div className="mt-4 p-3 bg-dark-700/50 rounded-lg">
+            <p className="text-xs text-dark-400 text-center">Or use a demo account to explore:</p>
+            <p className="text-xs text-dark-300 text-center font-mono mt-1">admin@cybersecacademy.com / Admin123!</p>
+          </div>
         </div>
 
         <p className="text-center text-dark-400 text-sm mt-6">

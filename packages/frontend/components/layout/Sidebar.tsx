@@ -2,6 +2,8 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { getCurrentUser, logout, User } from '@/lib/auth';
 
 const navItems = [
   { href: '/dashboard', label: 'Dashboard', icon: 'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6' },
@@ -16,6 +18,26 @@ const navItems = [
 
 export default function Sidebar() {
   const pathname = usePathname();
+  const [user, setUser] = useState<User | null>(null);
+
+  useEffect(() => {
+    const currentUser = getCurrentUser();
+    if (!currentUser) {
+      // Not logged in, redirect to login
+      window.location.href = '/login';
+      return;
+    }
+    setUser(currentUser);
+  }, []);
+
+  const handleLogout = () => {
+    logout();
+    window.location.href = '/login';
+  };
+
+  const initials = user
+    ? `${user.firstName.charAt(0)}${user.lastName.charAt(0)}`
+    : 'XX';
 
   return (
     <aside className="fixed left-0 top-0 h-full w-64 bg-dark-900 border-r border-dark-700/50 z-40 flex flex-col">
@@ -54,12 +76,21 @@ export default function Sidebar() {
       <div className="p-4 border-t border-dark-700/50">
         <div className="flex items-center gap-3">
           <div className="w-9 h-9 bg-cyber-400/20 rounded-full flex items-center justify-center">
-            <span className="text-cyber-400 text-sm font-semibold">DS</span>
+            <span className="text-cyber-400 text-sm font-semibold">{initials}</span>
           </div>
           <div className="flex-1 min-w-0">
-            <p className="text-sm font-medium truncate">Demo Student</p>
-            <p className="text-xs text-dark-400 truncate">250 XP</p>
+            <p className="text-sm font-medium truncate">{user?.firstName} {user?.lastName}</p>
+            <p className="text-xs text-dark-400 truncate">{user?.xpPoints || 0} XP · {user?.role}</p>
           </div>
+          <button
+            onClick={handleLogout}
+            className="p-1.5 text-dark-400 hover:text-red-400 rounded transition-colors"
+            title="Logout"
+          >
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+            </svg>
+          </button>
         </div>
       </div>
     </aside>

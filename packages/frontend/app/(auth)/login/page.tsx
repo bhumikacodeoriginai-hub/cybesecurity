@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { authenticate, saveSession } from '@/lib/auth';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -14,32 +15,29 @@ export default function LoginPage() {
     setError('');
     setLoading(true);
 
-    try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api'}/auth/login`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
-      });
+    // Small delay to simulate network
+    await new Promise(resolve => setTimeout(resolve, 300));
 
-      const data = await res.json();
+    // Use hardcoded authentication
+    const result = authenticate(email, password);
 
-      if (!data.success) {
-        setError(data.error || 'Login failed');
-        return;
-      }
-
-      // Store tokens
-      localStorage.setItem('accessToken', data.data.accessToken);
-      localStorage.setItem('refreshToken', data.data.refreshToken);
-      localStorage.setItem('user', JSON.stringify(data.data.user));
-
-      // Redirect to dashboard
-      window.location.href = '/dashboard';
-    } catch (err) {
-      setError('Network error. Please try again.');
-    } finally {
+    if (!result.success || !result.user) {
+      setError(result.error || 'Login failed');
       setLoading(false);
+      return;
     }
+
+    // Save session
+    saveSession(result.user);
+
+    // Redirect to dashboard
+    window.location.href = '/dashboard';
+  };
+
+  // Quick login with demo credentials
+  const quickLogin = (demoEmail: string, demoPassword: string) => {
+    setEmail(demoEmail);
+    setPassword(demoPassword);
   };
 
   return (
@@ -115,10 +113,36 @@ export default function LoginPage() {
             </button>
           </form>
 
-          {/* Demo credentials */}
-          <div className="mt-6 p-3 bg-dark-700/50 rounded-lg">
-            <p className="text-xs text-dark-400 text-center mb-2">Demo Credentials</p>
-            <p className="text-xs text-dark-300 text-center font-mono">student@cybersecacademy.com / Student123!</p>
+          {/* Demo credentials - Quick Login */}
+          <div className="mt-6 space-y-2">
+            <p className="text-xs text-dark-500 text-center">Quick Login (Demo Accounts)</p>
+            <div className="grid gap-2">
+              <button
+                onClick={() => quickLogin('admin@cybersecacademy.com', 'Admin123!')}
+                className="w-full p-2 bg-dark-700/50 hover:bg-dark-700 rounded-lg text-left transition-colors border border-dark-600/50"
+              >
+                <p className="text-xs text-dark-200 font-medium">Admin</p>
+                <p className="text-[10px] text-dark-500 font-mono">admin@cybersecacademy.com / Admin123!</p>
+              </button>
+              <button
+                onClick={() => quickLogin('instructor@cybersecacademy.com', 'Admin123!')}
+                className="w-full p-2 bg-dark-700/50 hover:bg-dark-700 rounded-lg text-left transition-colors border border-dark-600/50"
+              >
+                <p className="text-xs text-dark-200 font-medium">Instructor</p>
+                <p className="text-[10px] text-dark-500 font-mono">instructor@cybersecacademy.com / Admin123!</p>
+              </button>
+              <button
+                onClick={() => quickLogin('student@cybersecacademy.com', 'Student123!')}
+                className="w-full p-2 bg-dark-700/50 hover:bg-dark-700 rounded-lg text-left transition-colors border border-dark-600/50"
+              >
+                <p className="text-xs text-dark-200 font-medium">Student</p>
+                <p className="text-[10px] text-dark-500 font-mono">student@cybersecacademy.com / Student123!</p>
+              </button>
+            </div>
+          </div>
+
+          <div className="mt-4 text-center">
+            <p className="text-[10px] text-dark-600">Secured by JWT Authentication</p>
           </div>
         </div>
 
