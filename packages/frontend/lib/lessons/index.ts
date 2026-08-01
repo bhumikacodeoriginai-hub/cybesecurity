@@ -2,6 +2,10 @@ import { lesson as L01 } from './L01-what-is-cybersecurity';
 import { lesson as L02 } from './L02-cia-triad';
 import { lesson as L08 } from './L08-intro-linux';
 import { lesson as L09 } from './L09-linux-filesystem';
+import { lesson as L10 } from './L10-file-operations';
+import { lesson as L11 } from './L11-users-permissions';
+import { lesson as L12 } from './L12-file-permissions';
+import { lesson as L13 } from './L13-services-systemd';
 import { lesson as L15 } from './L15-osi-tcp-ip';
 import { lesson as L16 } from './L16-ip-subnetting';
 import { lesson as L17 } from './L17-tcp-udp';
@@ -72,6 +76,10 @@ export const lessons: Record<string, LessonContent> = {
   'the-cia-triad': L02 as unknown as LessonContent,
   'intro-linux': L08 as unknown as LessonContent,
   'linux-filesystem': L09 as unknown as LessonContent,
+  'linux-file-operations': L10 as unknown as LessonContent,
+  'linux-users-permissions': L11 as unknown as LessonContent,
+  'linux-file-permissions': L12 as unknown as LessonContent,
+  'linux-services-systemd': L13 as unknown as LessonContent,
   'osi-tcp-ip-model': L15 as unknown as LessonContent,
   'ip-addressing-subnetting': L16 as unknown as LessonContent,
   'tcp-udp-transport': L17 as unknown as LessonContent,
