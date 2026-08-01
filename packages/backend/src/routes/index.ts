@@ -4,6 +4,7 @@ import coursesRoutes from './courses.routes';
 import progressRoutes from './progress.routes';
 import searchRoutes from './search.routes';
 import labsRoutes from './labs.routes';
+import ctfRoutes from './ctf.routes';
 import labOrchestrator from '../services/lab-orchestrator';
 
 const router = Router();
@@ -28,5 +29,6 @@ router.use('/', coursesRoutes);
 router.use('/progress', progressRoutes);
 router.use('/search', searchRoutes);
 router.use('/labs', labsRoutes);
+router.use('/ctf', ctfRoutes);
 
 export default router;
