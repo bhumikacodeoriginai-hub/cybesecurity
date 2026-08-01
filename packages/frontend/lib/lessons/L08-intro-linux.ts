@@ -26,7 +26,7 @@ export const lesson = {
     { type: 'paragraph', content: 'Linux itself is just the kernel (the core that talks to hardware). A "distribution" (distro) packages the kernel with tools, a package manager, and a desktop environment:' },
     { type: 'list', items: [
       'Ubuntu/Debian — Beginner-friendly, most popular for servers and desktops',
-      'Kali Linux — Pre-loaded with 600+ security tools. The pentester\\'s distro.',
+      "Kali Linux — Pre-loaded with 600+ security tools. The pentester's distro.",
       'CentOS/Rocky Linux — Enterprise servers, used in corporate environments',
       'Arch Linux — Minimalist, build everything from scratch (advanced users)',
       'Parrot OS — Security-focused alternative to Kali with better daily-driver support'
@@ -60,7 +60,7 @@ export const lesson = {
       'sudo — Temporarily elevates a regular user to root privileges for one command',
       'Security principle: Never run as root unless absolutely necessary (least privilege)'
     ]},
-    { type: 'callout', variant: 'security', content: 'Running as root all the time is dangerous. If malware runs as root, it has total system control. If it runs as a regular user, damage is limited to that user\\'s files. This is why Linux servers are more secure — proper user separation limits blast radius.' },
+    { type: 'callout', variant: 'security', content: "Running as root all the time is dangerous. If malware runs as root, it has total system control. If it runs as a regular user, damage is limited to that user's files. This is why Linux servers are more secure — proper user separation limits blast radius." },
     { type: 'heading', level: 2, content: 'Summary' },
     { type: 'list', items: [
       'Linux powers 96%+ of servers — you WILL encounter it in cybersecurity',
