@@ -4,10 +4,12 @@
 
 @layer base {
   :root {
-    --background: #0f172a;
+    --background: #030712;
     --foreground: #f8fafc;
     --primary: #00d4ff;
     --primary-hover: #00b4e6;
+    --glow: rgba(0, 212, 255, 0.15);
+    --glow-strong: rgba(0, 212, 255, 0.4);
   }
 
   body {
@@ -18,99 +20,320 @@
 
   /* Custom scrollbar */
   ::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
+    width: 6px;
+    height: 6px;
   }
 
   ::-webkit-scrollbar-track {
-    background: #1e293b;
+    background: #0f172a;
   }
 
   ::-webkit-scrollbar-thumb {
-    background: #475569;
-    border-radius: 4px;
+    background: #334155;
+    border-radius: 3px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: #64748b;
+    background: #475569;
+  }
+
+  ::selection {
+    background: rgba(0, 212, 255, 0.3);
+    color: #fff;
   }
 }
 
 @layer components {
+  /* === BUTTONS === */
   .btn-primary {
-    @apply px-6 py-3 bg-cyber-400 text-dark-900 font-semibold rounded-lg
-    hover:bg-cyber-500 transition-all duration-200
-    focus:outline-none focus:ring-2 focus:ring-cyber-400 focus:ring-offset-2 focus:ring-offset-dark-900;
+    @apply relative px-6 py-3 bg-gradient-to-r from-cyber-400 to-cyan-500 text-dark-900 font-semibold rounded-xl
+    hover:from-cyber-500 hover:to-cyan-600 transition-all duration-300 transform hover:scale-[1.02]
+    focus:outline-none focus:ring-2 focus:ring-cyber-400/50 focus:ring-offset-2 focus:ring-offset-dark-900
+    shadow-lg shadow-cyber-400/20 hover:shadow-cyber-400/40;
   }
 
   .btn-secondary {
-    @apply px-6 py-3 border border-cyber-400/30 text-cyber-400 font-semibold rounded-lg
-    hover:bg-cyber-400/10 hover:border-cyber-400/60 transition-all duration-200
-    focus:outline-none focus:ring-2 focus:ring-cyber-400 focus:ring-offset-2 focus:ring-offset-dark-900;
+    @apply px-6 py-3 border border-cyber-400/30 text-cyber-400 font-semibold rounded-xl
+    hover:bg-cyber-400/10 hover:border-cyber-400/60 hover:shadow-lg hover:shadow-cyber-400/10
+    transition-all duration-300 backdrop-blur-sm
+    focus:outline-none focus:ring-2 focus:ring-cyber-400/30 focus:ring-offset-2 focus:ring-offset-dark-900;
   }
 
   .btn-ghost {
-    @apply px-4 py-2 text-dark-300 hover:text-white hover:bg-dark-800 rounded-lg transition-all duration-200;
+    @apply px-4 py-2 text-dark-300 hover:text-white hover:bg-white/5 rounded-lg transition-all duration-200;
   }
 
+  .btn-danger {
+    @apply px-4 py-2 text-red-400 bg-red-500/10 border border-red-500/20 rounded-xl
+    hover:bg-red-500/20 hover:border-red-500/40 transition-all duration-200;
+  }
+
+  /* === CARDS === */
   .card {
-    @apply bg-dark-800/50 border border-dark-700/50 rounded-xl p-6 backdrop-blur-sm;
+    @apply relative bg-gradient-to-br from-dark-800/80 to-dark-800/40
+    border border-white/[0.06] rounded-2xl p-6
+    backdrop-blur-xl shadow-xl shadow-black/20;
   }
 
   .card-hover {
-    @apply card hover:border-cyber-400/30 hover:bg-dark-800/80 transition-all duration-300 cursor-pointer;
+    @apply card cursor-pointer
+    hover:border-cyber-400/20 hover:shadow-2xl hover:shadow-cyber-400/5
+    hover:translate-y-[-2px] transition-all duration-300;
   }
 
+  .card-glow {
+    @apply card border-cyber-400/20 shadow-lg shadow-cyber-400/10;
+  }
+
+  .card-glass {
+    @apply relative bg-white/[0.03] border border-white/[0.08] rounded-2xl p-6
+    backdrop-blur-2xl;
+  }
+
+  /* === BADGES === */
   .badge {
-    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+    @apply inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold tracking-wide uppercase;
   }
 
   .badge-beginner {
-    @apply badge bg-green-500/10 text-green-400 border border-green-500/20;
+    @apply badge bg-emerald-500/10 text-emerald-400 border border-emerald-500/20
+    shadow-sm shadow-emerald-500/10;
   }
 
   .badge-intermediate {
-    @apply badge bg-yellow-500/10 text-yellow-400 border border-yellow-500/20;
+    @apply badge bg-amber-500/10 text-amber-400 border border-amber-500/20
+    shadow-sm shadow-amber-500/10;
   }
 
   .badge-advanced {
-    @apply badge bg-orange-500/10 text-orange-400 border border-orange-500/20;
+    @apply badge bg-orange-500/10 text-orange-400 border border-orange-500/20
+    shadow-sm shadow-orange-500/10;
   }
 
   .badge-professional {
-    @apply badge bg-red-500/10 text-red-400 border border-red-500/20;
+    @apply badge bg-rose-500/10 text-rose-400 border border-rose-500/20
+    shadow-sm shadow-rose-500/10;
   }
 
+  /* === INPUTS === */
   .input-field {
-    @apply w-full px-4 py-3 bg-dark-800 border border-dark-600 rounded-lg
-    text-white placeholder-dark-400
-    focus:outline-none focus:border-cyber-400 focus:ring-1 focus:ring-cyber-400
-    transition-colors duration-200;
+    @apply w-full px-4 py-3 bg-white/[0.03] border border-white/[0.08] rounded-xl
+    text-white placeholder-dark-500
+    focus:outline-none focus:border-cyber-400/50 focus:ring-2 focus:ring-cyber-400/20
+    focus:bg-white/[0.05] transition-all duration-200 backdrop-blur-sm;
   }
 
+  /* === PROGRESS === */
   .progress-bar {
-    @apply h-2 bg-dark-700 rounded-full overflow-hidden;
+    @apply h-2 bg-dark-800 rounded-full overflow-hidden border border-white/[0.05];
   }
 
   .progress-bar-fill {
-    @apply h-full bg-gradient-to-r from-cyber-400 to-cyber-500 rounded-full transition-all duration-500;
+    @apply h-full bg-gradient-to-r from-cyber-400 to-cyan-400 rounded-full
+    transition-all duration-700 ease-out relative;
   }
 
+  .progress-bar-fill::after {
+    content: '';
+    @apply absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent
+    animate-shimmer;
+  }
+
+  /* === NAVIGATION === */
   .nav-link {
-    @apply flex items-center gap-3 px-4 py-2.5 text-dark-300 rounded-lg
-    hover:text-white hover:bg-dark-800 transition-all duration-200;
+    @apply flex items-center gap-3 px-4 py-2.5 text-dark-400 rounded-xl
+    hover:text-white hover:bg-white/[0.05] transition-all duration-200;
   }
 
   .nav-link-active {
-    @apply nav-link text-cyber-400 bg-cyber-400/10 border-l-2 border-cyber-400;
+    @apply flex items-center gap-3 px-4 py-2.5 rounded-xl
+    text-cyber-400 bg-cyber-400/[0.08] border border-cyber-400/20
+    shadow-sm shadow-cyber-400/10;
   }
 
+  /* === TEXT EFFECTS === */
   .glow-text {
-    @apply text-cyber-400;
-    text-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
+    @apply text-transparent bg-clip-text bg-gradient-to-r from-cyber-400 via-cyan-300 to-blue-400;
+  }
+
+  .gradient-text {
+    @apply text-transparent bg-clip-text bg-gradient-to-r from-white to-dark-300;
   }
 
   .section-heading {
-    @apply text-2xl md:text-3xl font-bold text-white mb-4;
+    @apply text-2xl md:text-3xl font-bold text-white mb-4 tracking-tight;
+  }
+
+  /* === TERMINAL === */
+  .terminal-window {
+    @apply bg-[#0a0e14] rounded-2xl border border-white/[0.06] overflow-hidden
+    shadow-2xl shadow-black/40;
+  }
+
+  .terminal-header {
+    @apply flex items-center justify-between px-4 py-3 bg-white/[0.03] border-b border-white/[0.06];
+  }
+
+  .terminal-dots {
+    @apply flex gap-2;
+  }
+
+  .terminal-dot {
+    @apply w-3 h-3 rounded-full;
+  }
+
+  /* === COMMAND BLOCK === */
+  .command-block {
+    @apply bg-[#0a0e14] border border-white/[0.06] rounded-xl overflow-hidden my-4;
+  }
+
+  .command-header {
+    @apply flex items-center justify-between px-4 py-2 bg-white/[0.03] border-b border-white/[0.06];
+  }
+
+  .command-body {
+    @apply p-4 font-mono text-sm;
+  }
+
+  .command-prompt {
+    @apply text-emerald-400;
+  }
+
+  .command-output {
+    @apply text-dark-300 mt-2 whitespace-pre-wrap;
+  }
+
+  .command-explanation {
+    @apply mt-3 px-4 py-3 bg-blue-500/5 border-t border-blue-500/10 text-xs text-blue-300/80;
+  }
+
+  /* === CALLOUTS === */
+  .callout {
+    @apply relative p-4 rounded-xl border-l-4 my-4;
+  }
+
+  .callout-info {
+    @apply callout bg-blue-500/5 border-l-blue-500 text-blue-200;
+  }
+
+  .callout-warning {
+    @apply callout bg-amber-500/5 border-l-amber-500 text-amber-200;
+  }
+
+  .callout-security {
+    @apply callout bg-cyber-400/5 border-l-cyber-400 text-cyan-200;
+  }
+
+  .callout-danger {
+    @apply callout bg-red-500/5 border-l-red-500 text-red-200;
+  }
+
+  .callout-success {
+    @apply callout bg-emerald-500/5 border-l-emerald-500 text-emerald-200;
+  }
+
+  /* === SPECIAL EFFECTS === */
+  .glass-panel {
+    @apply bg-white/[0.02] backdrop-blur-2xl border border-white/[0.06] rounded-2xl;
+  }
+
+  .dot-grid {
+    background-image: radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+
+  .cyber-grid {
+    background-image:
+      linear-gradient(rgba(0, 212, 255, 0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 212, 255, 0.02) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  .gradient-border {
+    @apply relative;
+    background: linear-gradient(var(--background), var(--background)) padding-box,
+                linear-gradient(135deg, rgba(0,212,255,0.3), transparent 50%, rgba(139,92,246,0.3)) border-box;
+    border: 1px solid transparent;
   }
 }
+
+/* === ANIMATIONS === */
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 5px rgba(0, 212, 255, 0.2); }
+  50% { box-shadow: 0 0 25px rgba(0, 212, 255, 0.4); }
+}
+
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@keyframes scan-line {
+  0% { top: -100%; }
+  100% { top: 100%; }
+}
+
+.animate-shimmer {
+  animation: shimmer 2s infinite;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient-shift 3s ease infinite;
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.6s ease-out forwards;
+}
+
+.animate-typing {
+  overflow: hidden;
+  white-space: nowrap;
+  animation: typing 2s steps(30) forwards;
+}
+
+.animate-blink {
+  animation: blink 1s step-end infinite;
+}
+
+/* Stagger delays for list animations */
+.stagger-1 { animation-delay: 0.1s; }
+.stagger-2 { animation-delay: 0.2s; }
+.stagger-3 { animation-delay: 0.3s; }
+.stagger-4 { animation-delay: 0.4s; }
+.stagger-5 { animation-delay: 0.5s; }
+.stagger-6 { animation-delay: 0.6s; }
