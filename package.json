@@ -1,0 +1,22 @@
+{
+  "name": "cybersec-academy",
+  "version": "1.0.0",
+  "private": true,
+  "description": "World-class Cybersecurity Learning & Practical Lab Platform",
+  "scripts": {
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:frontend": "cd packages/frontend && npm run dev",
+    "dev:backend": "cd packages/backend && npm run dev",
+    "build": "npm run build:backend && npm run build:frontend",
+    "build:frontend": "cd packages/frontend && npm run build",
+    "build:backend": "cd packages/backend && npm run build",
+    "seed": "cd packages/backend && npm run seed",
+    "lint": "concurrently \"cd packages/frontend && npm run lint\" \"cd packages/backend && npm run lint\""
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
