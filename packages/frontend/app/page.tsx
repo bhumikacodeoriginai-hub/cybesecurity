@@ -61,8 +61,8 @@ export default function HomePage() {
               <a href="#ctf" className="text-dark-300 hover:text-white transition-colors">CTF</a>
             </div>
             <div className="flex items-center gap-3">
-              <Link href="/login" className="btn-ghost">Log In</Link>
-              <Link href="/register" className="btn-primary text-sm">Get Started</Link>
+              <Link href="/dashboard" className="btn-ghost">Dashboard</Link>
+              <Link href="/dashboard" className="btn-primary text-sm">Open Platform</Link>
             </div>
           </div>
         </div>
@@ -92,10 +92,10 @@ export default function HomePage() {
           </p>
           
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
-            <Link href="/register" className="btn-primary text-lg px-8 py-4 w-full sm:w-auto">
+            <Link href="/dashboard" className="btn-primary text-lg px-8 py-4 w-full sm:w-auto">
               Start Learning Free
             </Link>
-            <Link href="/courses" className="btn-secondary text-lg px-8 py-4 w-full sm:w-auto">
+            <Link href="/labs" className="btn-secondary text-lg px-8 py-4 w-full sm:w-auto">
               Explore Cyber Lab
             </Link>
           </div>
@@ -256,8 +256,8 @@ export default function HomePage() {
             <p className="text-dark-300 mb-8 text-lg">
               Join thousands of learners building real-world security skills through hands-on practice.
             </p>
-            <Link href="/register" className="btn-primary text-lg px-10 py-4 inline-block">
-              Create Free Account
+            <Link href="/dashboard" className="btn-primary text-lg px-10 py-4 inline-block">
+              Open Platform
             </Link>
           </div>
         </div>

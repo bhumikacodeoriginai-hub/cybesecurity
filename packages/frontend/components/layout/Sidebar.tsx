@@ -3,7 +3,8 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { getCurrentUser, logout, User } from '@/lib/auth';
+import { getCurrentUser, User, getActiveRole } from '@/lib/auth';
+import RoleSwitcher from './RoleSwitcher';
 
 const navItems = [
   { href: '/dashboard', label: 'Dashboard', icon: 'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6' },
@@ -16,28 +17,28 @@ const navItems = [
   { href: '/profile', label: 'Profile', icon: 'M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z' },
 ];
 
+// Admin-only nav items
+const adminNavItems = [
+  { href: '/admin', label: 'Admin Panel', icon: 'M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z' },
+];
+
 export default function Sidebar() {
   const pathname = usePathname();
   const [user, setUser] = useState<User | null>(null);
+  const [role, setRole] = useState('STUDENT');
 
   useEffect(() => {
-    const currentUser = getCurrentUser();
-    if (!currentUser) {
-      // Not logged in, redirect to login
-      window.location.href = '/login';
-      return;
-    }
-    setUser(currentUser);
+    setUser(getCurrentUser());
+    setRole(getActiveRole());
   }, []);
-
-  const handleLogout = () => {
-    logout();
-    window.location.href = '/login';
-  };
 
   const initials = user
     ? `${user.firstName.charAt(0)}${user.lastName.charAt(0)}`
-    : 'XX';
+    : 'CS';
+
+  const allNavItems = role === 'ADMIN' || role === 'SUPER_ADMIN'
+    ? [...navItems, ...adminNavItems]
+    : navItems;
 
   return (
     <aside className="fixed left-0 top-0 h-full w-64 bg-dark-900 border-r border-dark-700/50 z-40 flex flex-col">
@@ -53,9 +54,15 @@ export default function Sidebar() {
         </Link>
       </div>
 
+      {/* Role Switcher */}
+      <div className="px-3 py-3 border-b border-dark-700/50">
+        <p className="text-[10px] text-dark-500 uppercase tracking-wider mb-2 px-1">View As</p>
+        <RoleSwitcher />
+      </div>
+
       {/* Navigation */}
       <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
-        {navItems.map((item) => {
+        {allNavItems.map((item) => {
           const isActive = pathname === item.href || pathname?.startsWith(item.href + '/');
           return (
             <Link
@@ -82,15 +89,6 @@ export default function Sidebar() {
             <p className="text-sm font-medium truncate">{user?.firstName} {user?.lastName}</p>
             <p className="text-xs text-dark-400 truncate">{user?.xpPoints || 0} XP · {user?.role}</p>
           </div>
-          <button
-            onClick={handleLogout}
-            className="p-1.5 text-dark-400 hover:text-red-400 rounded transition-colors"
-            title="Logout"
-          >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-            </svg>
-          </button>
         </div>
       </div>
     </aside>
