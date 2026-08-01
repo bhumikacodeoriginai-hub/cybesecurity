@@ -17,6 +17,15 @@ export default function DashboardPage() {
     { label: 'Day Streak', value: '3', icon: '🔥', color: 'text-orange-400' },
   ];
 
+  const activeLabs = [
+    { title: 'Linux Intrusion Investigation', slug: 'linux-intrusion-investigation', timeRemaining: '45:22', status: 'running' },
+  ];
+
+  const recentLabHistory = [
+    { title: 'File Permissions Lab', status: 'COMPLETED', duration: '22 min', score: 100 },
+    { title: 'Network Scanning', status: 'EXPIRED', duration: '45 min', score: 50 },
+  ];
+
   const continueLearning = [
     { title: 'Introduction to Cybersecurity', progress: 45, slug: 'intro-to-cybersecurity', path: 'Cybersecurity Foundations' },
     { title: 'Networking Fundamentals', progress: 20, slug: 'networking-fundamentals', path: 'Network Security' },
@@ -64,6 +73,61 @@ export default function DashboardPage() {
           </div>
         ))}
       </div>
+
+      {/* Active Labs Section */}
+      {activeLabs.length > 0 && (
+        <div className="space-y-3">
+          <h2 className="text-lg font-semibold flex items-center gap-2">
+            <span>🧪</span> Active Labs
+          </h2>
+          {activeLabs.map((lab) => (
+            <a key={lab.slug} href={`/labs/${lab.slug}`} className="block">
+              <div className="card-hover border-green-500/20 bg-green-500/5">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
+                    <div>
+                      <h3 className="font-medium text-white">{lab.title}</h3>
+                      <p className="text-xs text-dark-400">Running — click to open terminal</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <span className="font-mono text-sm text-green-400">{lab.timeRemaining}</span>
+                    <span className="text-xs text-dark-500">remaining</span>
+                  </div>
+                </div>
+              </div>
+            </a>
+          ))}
+        </div>
+      )}
+
+      {/* Recent Lab Activity */}
+      {recentLabHistory.length > 0 && (
+        <div className="space-y-3">
+          <h2 className="text-lg font-semibold flex items-center gap-2">
+            <span>📋</span> Recent Lab Activity
+          </h2>
+          <div className="grid sm:grid-cols-2 gap-3">
+            {recentLabHistory.map((lab, idx) => (
+              <div key={idx} className="card flex items-center gap-3">
+                <span className={`text-lg ${lab.status === 'COMPLETED' ? '' : 'opacity-50'}`}>
+                  {lab.status === 'COMPLETED' ? '✅' : '⏰'}
+                </span>
+                <div className="flex-1">
+                  <p className="text-sm font-medium text-white">{lab.title}</p>
+                  <p className="text-xs text-dark-400">{lab.duration} · {lab.score}% score</p>
+                </div>
+                <span className={`text-xs px-2 py-0.5 rounded ${
+                  lab.status === 'COMPLETED' ? 'bg-green-500/10 text-green-400' : 'bg-yellow-500/10 text-yellow-400'
+                }`}>
+                  {lab.status}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       <div className="grid lg:grid-cols-3 gap-6">
         {/* Continue Learning */}

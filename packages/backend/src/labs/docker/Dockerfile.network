@@ -1,0 +1,40 @@
+# CyberSec Academy - Network Lab Base Image
+# This image is used for network security labs
+FROM ubuntu:22.04
+
+LABEL maintainer="CyberSec Academy"
+LABEL description="Isolated network lab for security training"
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Install network tools
+RUN apt-get update && apt-get install -y \
+    bash \
+    nmap \
+    netcat-openbsd \
+    tcpdump \
+    traceroute \
+    dnsutils \
+    whois \
+    curl \
+    wget \
+    net-tools \
+    iputils-ping \
+    iproute2 \
+    iptables \
+    openssh-client \
+    wireshark-common \
+    tshark \
+    && rm -rf /var/lib/apt/lists/*
+
+# Create student user
+RUN useradd -m -s /bin/bash student \
+    && echo "student:student" | chpasswd
+
+WORKDIR /home/student
+USER student
+
+HEALTHCHECK --interval=10s --timeout=3s \
+    CMD which nmap || exit 1
+
+CMD ["/bin/bash"]

@@ -1,0 +1,55 @@
+import { LabDefinition } from './index';
+
+export const webReconLab: LabDefinition = {
+  id: 'lab-web-recon',
+  slug: 'web-application-reconnaissance',
+  title: 'Web Application Reconnaissance',
+  description: 'Explore a deliberately vulnerable web application. Discover endpoints, identify technologies, and find security issues.',
+  difficulty: 'INTERMEDIATE',
+  category: 'Web Security',
+  durationMinutes: 60,
+  xpReward: 80,
+  docker: {
+    image: 'cybersec-lab-web',
+    tag: 'recon-v1',
+    hostname: 'web-lab',
+    cpuLimit: 1,
+    memoryLimit: '1g',
+    diskLimit: '2g',
+    env: { LAB_TYPE: 'web-recon', DIFFICULTY: 'intermediate' },
+    ports: { '80': 8080 },
+    setupScript: 'service nginx start && service php-fpm start',
+    healthCheck: 'curl -s http://localhost:80 | grep -q "html"',
+  },
+  objectives: [
+    { id: 'obj-find-tech', title: 'Identify the web server technology', description: 'Determine what web server and language the app uses', validationType: 'flag_submission', validationConfig: { flag: 'nginx' } },
+    { id: 'obj-find-dirs', title: 'Discover hidden directories', description: 'Find admin or backup directories', validationType: 'flag_submission', validationConfig: { flag: '/admin' } },
+    { id: 'obj-find-headers', title: 'Identify missing security headers', description: 'Check for missing HTTP security headers', validationType: 'command_output', validationConfig: {} },
+    { id: 'obj-find-vuln', title: 'Identify a potential vulnerability', description: 'Find at least one security misconfiguration', validationType: 'flag_submission', validationConfig: { flag: 'directory_listing' } },
+  ],
+  instructions: [
+    { id: 's1', title: 'Access the web application', content: 'The target web app is running at http://192.168.1.100', type: 'text' },
+    { id: 's2', title: 'Check HTTP headers', content: 'Inspect the response headers', type: 'command', command: 'curl -I http://192.168.1.100' },
+    { id: 's3', title: 'Identify technologies', content: 'Look at Server header and other indicators to determine the tech stack.', type: 'note' },
+    { id: 's4', title: 'Check common paths', content: 'Try accessing common admin/backup paths', type: 'command', command: 'curl -s http://192.168.1.100/admin/' },
+    { id: 's5', title: 'Check robots.txt', content: 'See if there are disallowed paths', type: 'command', command: 'curl -s http://192.168.1.100/robots.txt' },
+    { id: 's6', title: 'Authorization notice', content: 'This web application is intentionally vulnerable and runs only inside this isolated lab. Never scan real websites without explicit authorization.', type: 'warning' },
+  ],
+  hints: [
+    'Check the "Server" header in HTTP responses',
+    'Try /admin, /backup, /config directories',
+    'Look for X-Frame-Options, Content-Security-Policy headers',
+    'Directory listing enabled means you can browse folders',
+  ],
+  tools: ['curl', 'Terminal', 'Browser (DevTools)'],
+  networkDiagram: [
+    { id: 'student', label: 'Your Machine', ip: '192.168.1.10', type: 'student' },
+    { id: 'web', label: 'Web Server', ip: '192.168.1.100', services: ['HTTP:80', 'HTTPS:443'], type: 'target' },
+  ],
+  validationRules: [
+    { objectiveId: 'obj-find-tech', type: 'flag_submission', config: { flag: 'nginx' } },
+    { objectiveId: 'obj-find-dirs', type: 'flag_submission', config: { flag: '/admin' } },
+    { objectiveId: 'obj-find-headers', type: 'command_output', config: { command: 'curl -I http://192.168.1.100', expectedOutput: 'Server:' } },
+    { objectiveId: 'obj-find-vuln', type: 'flag_submission', config: { flag: 'directory_listing' } },
+  ],
+};

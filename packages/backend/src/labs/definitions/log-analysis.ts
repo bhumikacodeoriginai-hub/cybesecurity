@@ -1,0 +1,51 @@
+import { LabDefinition } from './index';
+
+export const logAnalysisLab: LabDefinition = {
+  id: 'lab-log-analysis',
+  slug: 'log-analysis-intrusion-detection',
+  title: 'Log Analysis for Intrusion Detection',
+  description: 'Analyze system and application logs to identify signs of unauthorized access and suspicious activity.',
+  difficulty: 'INTERMEDIATE',
+  category: 'SOC / Blue Team',
+  durationMinutes: 45,
+  xpReward: 70,
+  docker: {
+    image: 'cybersec-lab-soc',
+    tag: 'logs-v1',
+    hostname: 'soc-analyst',
+    cpuLimit: 0.5,
+    memoryLimit: '512m',
+    diskLimit: '1g',
+    env: { LAB_TYPE: 'log-analysis', DIFFICULTY: 'intermediate' },
+    ports: {},
+    setupScript: '# Pre-populated log files for analysis',
+    healthCheck: 'test -f /var/log/auth.log',
+  },
+  objectives: [
+    { id: 'obj-failed-logins', title: 'Identify brute-force attempt', description: 'Find the IP that made repeated failed SSH login attempts', validationType: 'flag_submission', validationConfig: { flag: '10.0.0.55' } },
+    { id: 'obj-successful-breach', title: 'Find the compromised account', description: 'Which account was successfully accessed after the brute-force?', validationType: 'flag_submission', validationConfig: { flag: 'webadmin' } },
+    { id: 'obj-timestamp', title: 'Determine the time of breach', description: 'When did the attacker gain access?', validationType: 'flag_submission', validationConfig: { flag: '14:23:45' } },
+    { id: 'obj-privilege-escalation', title: 'Detect privilege escalation', description: 'Did the attacker attempt to escalate privileges?', validationType: 'flag_submission', validationConfig: { flag: 'yes' } },
+  ],
+  instructions: [
+    { id: 's1', title: 'Review the scenario', content: 'A security alert has been triggered. Multiple failed login attempts followed by a successful login have been detected. Your job is to analyze the logs and answer key questions.', type: 'text' },
+    { id: 's2', title: 'View auth logs', content: 'Start by examining the authentication log', type: 'command', command: 'cat /var/log/auth.log' },
+    { id: 's3', title: 'Filter failed attempts', content: 'Isolate failed login entries', type: 'command', command: 'grep "Failed" /var/log/auth.log | head -20' },
+    { id: 's4', title: 'Find successful login', content: 'After brute-force, find the successful entry', type: 'command', command: 'grep "Accepted" /var/log/auth.log' },
+    { id: 's5', title: 'Check for escalation', content: 'Look for sudo or su attempts', type: 'command', command: 'grep -i "sudo\\|su" /var/log/auth.log' },
+    { id: 's6', title: 'SOC Tip', content: 'In a real SOC, you would correlate these logs with network flow data, endpoint telemetry, and threat intelligence feeds.', type: 'note' },
+  ],
+  hints: [
+    'Use grep "Failed" and look at the "from" IP address',
+    'Look for "Accepted password" entries after the failed attempts',
+    'The timestamp is in the format HH:MM:SS in the log entry',
+    'Check for "sudo" entries from the compromised user',
+  ],
+  tools: ['Terminal', 'grep', 'awk', 'sort', 'uniq', 'wc'],
+  validationRules: [
+    { objectiveId: 'obj-failed-logins', type: 'flag_submission', config: { flag: '10.0.0.55' } },
+    { objectiveId: 'obj-successful-breach', type: 'flag_submission', config: { flag: 'webadmin' } },
+    { objectiveId: 'obj-timestamp', type: 'flag_submission', config: { flag: '14:23:45' } },
+    { objectiveId: 'obj-privilege-escalation', type: 'flag_submission', config: { flag: 'yes' } },
+  ],
+};

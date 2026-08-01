@@ -1,0 +1,42 @@
+# CyberSec Academy - Web Security Lab Base Image
+# Contains a deliberately vulnerable web application
+FROM ubuntu:22.04
+
+LABEL maintainer="CyberSec Academy"
+LABEL description="Vulnerable web app for security training"
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Install web stack and tools
+RUN apt-get update && apt-get install -y \
+    bash \
+    nginx \
+    php-fpm \
+    php-mysql \
+    curl \
+    wget \
+    net-tools \
+    iputils-ping \
+    iproute2 \
+    netcat-openbsd \
+    nmap \
+    dirb \
+    && rm -rf /var/lib/apt/lists/*
+
+# Create student user
+RUN useradd -m -s /bin/bash student \
+    && echo "student:student" | chpasswd
+
+# Setup deliberately vulnerable web app
+RUN mkdir -p /var/www/html/admin \
+    && echo "<h1>Vulnerable App</h1>" > /var/www/html/index.html \
+    && echo "User-agent: *\nDisallow: /admin\nDisallow: /backup" > /var/www/html/robots.txt \
+    && echo "<h1>Admin Panel</h1>" > /var/www/html/admin/index.html
+
+WORKDIR /home/student
+USER student
+
+HEALTHCHECK --interval=10s --timeout=3s \
+    CMD curl -s http://localhost:80 || exit 1
+
+CMD ["nginx", "-g", "daemon off;"]

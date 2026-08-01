@@ -1,0 +1,58 @@
+# CyberSec Academy - Linux Lab Base Image
+# This image is used for Linux security labs
+FROM ubuntu:22.04
+
+LABEL maintainer="CyberSec Academy"
+LABEL description="Isolated Linux lab environment for security training"
+
+# Prevent interactive prompts
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Install essential tools
+RUN apt-get update && apt-get install -y \
+    bash \
+    coreutils \
+    findutils \
+    grep \
+    sed \
+    awk \
+    less \
+    vim-tiny \
+    net-tools \
+    iputils-ping \
+    iproute2 \
+    curl \
+    wget \
+    nmap \
+    netcat-openbsd \
+    openssh-server \
+    sudo \
+    tree \
+    file \
+    && rm -rf /var/lib/apt/lists/*
+
+# Create student user
+RUN useradd -m -s /bin/bash student \
+    && echo "student:student" | chpasswd
+
+# Create lab directory
+RUN mkdir -p /home/student/lab-files \
+    && chown -R student:student /home/student
+
+# Security: Remove unnecessary SUID binaries
+RUN chmod u-s /usr/bin/newgrp \
+    && chmod u-s /usr/bin/chfn \
+    && chmod u-s /usr/bin/chsh
+
+# Set working directory
+WORKDIR /home/student
+
+# Default user
+USER student
+
+# Health check
+HEALTHCHECK --interval=10s --timeout=3s \
+    CMD whoami || exit 1
+
+# Default command
+CMD ["/bin/bash"]

@@ -1,0 +1,53 @@
+# Docker Compose for Lab Infrastructure
+# This runs SEPARATELY from the main application
+# Labs are on an isolated Docker network with no internet access
+
+version: '3.8'
+
+networks:
+  lab-network:
+    driver: bridge
+    internal: true  # No internet access
+    ipam:
+      config:
+        - subnet: 192.168.1.0/24
+
+services:
+  # Example: Linux Intrusion Lab
+  lab-linux-intrusion:
+    build:
+      context: .
+      dockerfile: Dockerfile.linux
+    networks:
+      lab-network:
+        ipv4_address: 192.168.1.10
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
+    security_opt:
+      - no-new-privileges:true
+    read_only: false
+    tmpfs:
+      - /tmp
+    labels:
+      - "cybersec.lab=true"
+      - "cybersec.lab.type=linux-intrusion"
+
+  # Example: Target server for network labs
+  lab-target-server:
+    build:
+      context: .
+      dockerfile: Dockerfile.web
+    networks:
+      lab-network:
+        ipv4_address: 192.168.1.100
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 256M
+    labels:
+      - "cybersec.lab=true"
+      - "cybersec.lab.type=target"
