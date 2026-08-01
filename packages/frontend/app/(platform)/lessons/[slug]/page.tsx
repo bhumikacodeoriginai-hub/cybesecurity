@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
-import { getLessonBySlug, modules } from '@/lib/curriculum';
+import { getLessonBySlug } from '@/lib/curriculum';
 import { getLessonBySlug as getLessonContent } from '@/lib/lessons';
 
 function ContentBlock({ block }: { block: any }) {

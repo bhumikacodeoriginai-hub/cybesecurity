@@ -79,10 +79,10 @@ export const lesson = {
       'Requires a unique nonce (number used once) per encryption — NEVER reuse nonces!'
     ]},
 
-    { type: 'command', command: 'python3 -c "\nimport os\nfrom cryptography.hazmat.primitives.ciphers.aead import AESGCM\n\n# Generate a random 256-bit key\nkey = AESGCM.generate_key(bit_length=256)\nprint(f\'Key (hex): {key.hex()[:32]}...\')\n\n# Encrypt with AES-256-GCM\naesgcm = AESGCM(key)\nnonce = os.urandom(12)  # 96-bit nonce, must be unique per message\nplaintext = b\'Top Secret: Launch codes are 1234\'\nassociated_data = b\'metadata-not-encrypted-but-authenticated\'\n\nciphertext = aesgcm.encrypt(nonce, plaintext, associated_data)\nprint(f\'Ciphertext ({len(ciphertext)} bytes): {ciphertext.hex()[:40]}...\')\nprint(f\'Includes 16-byte auth tag for integrity verification\')\n\n# Decrypt\ndecrypted = aesgcm.decrypt(nonce, ciphertext, associated_data)\nprint(f\'Decrypted: {decrypted.decode()}\')\n"', output: `Key (hex): a7b3c9d2e1f04567890abcdef1234567...
+    { type: 'command', command: 'python3 aes_gcm_demo.py', output: `Key (hex): a7b3c9d2e1f04567890abcdef1234567...
 Ciphertext (50 bytes): 3f8a2b7c9d0e1f4a5b6c7d8e9f0a1b2c3d4e5f6a7b...
 Includes 16-byte auth tag for integrity verification
-Decrypted: Top Secret: Launch codes are 1234`, explanation: 'AES-256-GCM in Python: Generates a random key, encrypts with a unique nonce, and includes associated data that\'s authenticated but not encrypted (e.g., headers, metadata). The ciphertext includes a 16-byte authentication tag.' },
+Decrypted: Top Secret: Launch codes are 1234`, explanation: 'AES-256-GCM in Python: Generates a random key, encrypts with a unique nonce, and includes associated data that is authenticated but not encrypted (e.g., headers, metadata). The ciphertext includes a 16-byte authentication tag.' },
 
     { type: 'callout', variant: 'security', content: 'Critical rule: Never reuse a nonce with the same key in GCM mode. Nonce reuse completely breaks the authentication guarantee and can leak the encryption key. Use a counter or random 96-bit value, and rotate keys before nonce space exhaustion.' },
 
