@@ -78,6 +78,37 @@ export default function LabWorkspacePage() {
   const step = lab.steps[currentStep];
   const isLast = currentStep === lab.steps.length - 1;
   const isFirst = currentStep === 0;
+  const isComplete = currentStep >= lab.steps.length;
+
+  // Show completion summary
+  if (isComplete) {
+    return (
+      <div className="max-w-4xl mx-auto space-y-6">
+        <div className="flex items-center justify-between">
+          <span className="text-[9px] font-mono text-dark-400 tracking-wider">{lab.title.toUpperCase()}</span>
+          <span className="text-[9px] font-mono text-neon">COMPLETE</span>
+        </div>
+        <div className="progress-bar">
+          <div className="progress-bar-fill" style={{ width: '100%' }} />
+        </div>
+        <div className="card p-6 border-neon/20 bg-neon/[0.03]">
+          <h3 className="text-sm font-bold text-neon mb-4 font-mono">LAB COMPLETE</h3>
+          <div className="space-y-2">
+            {lab.summary.map((s, i) => (
+              <div key={i} className="flex items-start gap-3 text-sm">
+                <span className="text-neon text-xs mt-1">&#10003;</span>
+                <span className="text-dark-200">{s}</span>
+              </div>
+            ))}
+          </div>
+          <div className="flex gap-3 mt-6">
+            <button onClick={() => setCurrentStep(0)} className="btn-ghost text-xs font-mono">RESTART LAB</button>
+            <Link href="/labs" className="btn-secondary text-xs">BACK TO LABS</Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-4xl mx-auto space-y-6">
@@ -146,24 +177,6 @@ export default function LabWorkspacePage() {
           </button>
         )}
       </div>
-
-      {/* Summary (shown after last step) */}
-      {currentStep >= lab.steps.length && (
-        <div className="card p-6 border-neon/20 bg-neon/[0.03]">
-          <h3 className="text-sm font-bold text-neon mb-4 font-mono">LAB COMPLETE</h3>
-          <div className="space-y-2">
-            {lab.summary.map((s, i) => (
-              <div key={i} className="flex items-start gap-3 text-sm">
-                <span className="text-neon text-xs mt-1">&#10003;</span>
-                <span className="text-dark-200">{s}</span>
-              </div>
-            ))}
-          </div>
-          <Link href="/labs" className="btn-secondary mt-6 inline-flex text-xs">
-            BACK TO LABS
-          </Link>
-        </div>
-      )}
     </div>
   );
 }
