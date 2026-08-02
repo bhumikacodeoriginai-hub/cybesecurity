@@ -21,7 +21,7 @@ export default function DeveloperCredit() {
             <span className="glow-text">RAGHAVENDRA N</span>
           </h3>
           <div className="flex items-center gap-2.5 mt-1.5 justify-center sm:justify-start">
-            <Image src="/logo.svg" alt="CodeOrigin.ai" width={24} height={24} className="rounded object-contain" />
+            <Image src="/logo.jpeg" alt="CodeOrigin.ai" width={24} height={24} className="rounded object-contain" />
             <span className="text-xs font-bold text-amber-400 tracking-wide">CodeOrigin.ai</span>
             <span className="text-[9px] text-dark-400 font-mono">Pvt Ltd</span>
           </div>
