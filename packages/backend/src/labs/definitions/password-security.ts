@@ -49,31 +49,3 @@ export const passwordSecurityLab: LabDefinition = {
     { objectiveId: 'obj-understand-salt', type: 'flag_submission', config: { flag: 'salt' } },
   ],
 };
-
-  objectives: [
-    { id: 'obj-hash-password', title: 'Hash a password with SHA-256', description: 'Use sha256sum to hash a sample password', validationType: 'command_output', validationConfig: {} },
-    { id: 'obj-identify-hash', title: 'Identify the hash algorithm', description: 'Determine what algorithm was used for a given hash', validationType: 'flag_submission', validationConfig: { flag: 'md5' } },
-    { id: 'obj-crack-weak', title: 'Demonstrate weak password risk', description: 'Show why "password123" is insecure', validationType: 'command_output', validationConfig: {} },
-    { id: 'obj-understand-salt', title: 'Understand salting', description: 'Why do identical passwords produce different hashes when salted?', validationType: 'flag_submission', validationConfig: { flag: 'salt' } },
-  ],
-  instructions: [
-    { id: 's1', title: 'Hash a password', content: 'Generate a SHA-256 hash', type: 'command', command: 'echo -n "cybersecurity" | sha256sum' },
-    { id: 's2', title: 'Observe the output', content: 'The hash is always 64 hex chars for SHA-256 regardless of input length.', type: 'note' },
-    { id: 's3', title: 'Compare with MD5', content: 'Generate an MD5 hash', type: 'command', command: 'echo -n "cybersecurity" | md5sum' },
-    { id: 's4', title: 'MD5 is broken', content: 'MD5 is cryptographically broken. Never use for password storage.', type: 'warning' },
-    { id: 's5', title: 'Shadow file format', content: 'See how Linux stores hashes', type: 'command', command: 'sudo cat /etc/shadow 2>/dev/null || echo "Access denied"' },
-  ],
-  hints: [
-    'SHA-256 produces 64 character hex output',
-    'MD5 produces 32 character hex output',
-    'A salt is random data added before hashing',
-    'Linux shadow: $algorithm$salt$hash',
-  ],
-  tools: ['Terminal', 'sha256sum', 'md5sum', 'openssl'],
-  validationRules: [
-    { objectiveId: 'obj-hash-password', type: 'command_output', config: { command: 'echo -n "cybersecurity" | sha256sum', expectedOutput: '' } },
-    { objectiveId: 'obj-identify-hash', type: 'flag_submission', config: { flag: 'md5' } },
-    { objectiveId: 'obj-crack-weak', type: 'command_output', config: { command: 'echo -n "password123" | md5sum', expectedOutput: '' } },
-    { objectiveId: 'obj-understand-salt', type: 'flag_submission', config: { flag: 'salt' } },
-  ],
-};
