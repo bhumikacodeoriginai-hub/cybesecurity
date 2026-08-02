@@ -60,7 +60,7 @@ Speed.#1.........:  8213.5 MH/s (SHA-256)`, explanation: 'A modern GPU can compu
     { type: 'heading', level: 3, content: 'bcrypt: Purpose-Built Password Hashing' },
     { type: 'paragraph', content: 'bcrypt is designed to be slow and memory-intensive. The "cost factor" controls how many rounds of computation are performed — doubling the work with each increment.' },
 
-    { type: 'command', command: 'python3 -c "import bcrypt; print(bcrypt.hashpw(b\'MyPassword123\', bcrypt.gensalt(rounds=12)).decode())"', output: `$2b$12$LJ3m4o9nJSHCf8QHR6GpOeXy8vN8nKxFAKE_HASH_FOR_DEMO_12345`, explanation: '$2b$12$ means bcrypt version 2b with cost factor 12 (2^12 = 4096 iterations). The salt is embedded in the hash. Each hash takes ~250ms — an attacker can only try 4 passwords/second instead of billions!' },
+    { type: 'command', command: 'python3 bcrypt_demo.py', output: '$2b$12$LJ3m4o9nJSHCf8QHR6GpOeXy8vN8nKxFAKE_HASH_FOR_DEMO_12345', explanation: '$2b$12$ means bcrypt version 2b with cost factor 12 (2^12 = 4096 iterations). The salt is embedded in the hash. Each hash takes ~250ms — an attacker can only try 4 passwords/second instead of billions!' },
 
     { type: 'list', items: [
       'Cost factor 10: ~100ms per hash (minimum recommended)',

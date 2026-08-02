@@ -1,119 +1,113 @@
 import Link from 'next/link';
 
-const modules = [
-  { n: 1, t: 'Introduction to Cybersecurity', d: 'BEGINNER', icon: '🛡️', c: '#00e5ff' },
-  { n: 2, t: 'Linux Fundamentals', d: 'BEGINNER', icon: '🐧', c: '#10b981' },
-  { n: 3, t: 'Computer Networking', d: 'BEGINNER', icon: '🌐', c: '#8b5cf6' },
-  { n: 4, t: 'Network Security', d: 'INTERMEDIATE', icon: '🔒', c: '#3b82f6' },
-  { n: 5, t: 'Web Application Security', d: 'INTERMEDIATE', icon: '🕸️', c: '#f59e0b' },
-  { n: 6, t: 'Cryptography', d: 'INTERMEDIATE', icon: '🔐', c: '#ec4899' },
-  { n: 7, t: 'Ethical Hacking & Pentesting', d: 'ADVANCED', icon: '💀', c: '#ef4444' },
-  { n: 8, t: 'SOC & Incident Response', d: 'ADVANCED', icon: '🎯', c: '#6366f1' },
-  { n: 9, t: 'Cloud & Infrastructure Security', d: 'ADVANCED', icon: '☁️', c: '#f97316' },
-  { n: 10, t: 'DevSecOps & Secure Development', d: 'ADVANCED', icon: '⚙️', c: '#14b8a6' },
-];
-
 export default function LandingPage() {
   return (
     <div className="min-h-screen bg-dark-950 relative overflow-hidden">
-      {/* Background effects */}
-      <div className="absolute inset-0 bg-grid-pattern opacity-40" />
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[700px] bg-gradient-glow pointer-events-none" />
+      {/* Subtle grid */}
+      <div className="absolute inset-0 bg-grid-pattern opacity-30 pointer-events-none" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[600px] bg-gradient-glow pointer-events-none" />
 
-      {/* Nav */}
-      <nav className="relative z-10 flex items-center justify-between px-6 sm:px-8 py-5 max-w-7xl mx-auto">
-        <div className="flex items-center gap-2.5">
-          <div className="w-10 h-10 bg-gradient-to-br from-cyber-400 to-cyan-300 rounded-xl flex items-center justify-center shadow-lg shadow-cyber-400/25">
-            <svg className="w-5 h-5 text-dark-950" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+      {/* Navigation */}
+      <nav className="relative z-10 flex items-center justify-between px-6 sm:px-10 py-6 max-w-7xl mx-auto">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-cyber-400 to-cyan-300 flex items-center justify-center shadow-lg shadow-cyber-400/25">
+            <svg className="w-5 h-5 text-dark-950" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
             </svg>
           </div>
-          <span className="font-bold text-xl tracking-tight">Cyber<span className="text-cyber-400">Sec</span></span>
+          <div className="leading-tight">
+            <span className="font-extrabold text-lg tracking-tight">CyberSec</span>
+            <span className="text-[9px] text-dark-500 block -mt-0.5 tracking-[0.25em] uppercase">Academy</span>
+          </div>
         </div>
         <Link href="/courses" className="btn-primary text-sm px-5 py-2.5">
-          Start Learning
+          Open Platform
         </Link>
       </nav>
 
-
       {/* Hero */}
-      <section className="relative z-10 max-w-5xl mx-auto px-6 sm:px-8 pt-16 sm:pt-24 pb-20 sm:pb-32 text-center">
-        <div className="inline-flex items-center gap-2 px-4 py-2 bg-cyber-400/[0.08] border border-cyber-400/20 rounded-full text-xs text-cyber-400 font-medium mb-8 backdrop-blur-sm">
-          <span className="w-1.5 h-1.5 bg-cyber-400 rounded-full animate-pulse-slow" />
-          10 Modules &middot; 72 Lessons &middot; 10 Hands-On Labs
+      <section className="relative z-10 max-w-5xl mx-auto px-6 sm:px-10 pt-16 sm:pt-28 pb-24 sm:pb-36 text-center">
+        <div className="inline-flex items-center gap-2.5 px-5 py-2 rounded-full border border-cyber-400/20 bg-cyber-400/[0.06] backdrop-blur-sm mb-10">
+          <span className="w-2 h-2 rounded-full bg-cyber-400 animate-pulse-slow" />
+          <span className="text-[11px] font-semibold text-cyber-400 tracking-wide uppercase">72 Lessons &middot; 10 Labs &middot; Production Ready</span>
         </div>
-        <h1 className="text-4xl sm:text-5xl md:text-7xl font-black tracking-tight leading-[1.08] mb-6">
-          Learn <span className="glow-text">Cybersecurity</span>
-          <br className="hidden sm:block" />
-          <span className="text-dark-300"> From Zero to Pro</span>
+
+        <h1 className="text-[2.75rem] sm:text-6xl md:text-[5.5rem] font-black tracking-[-0.03em] leading-[1.05]">
+          <span className="glow-text">Cybersecurity</span>
+          <br />
+          <span className="text-dark-200">Training Platform</span>
         </h1>
-        <p className="text-base sm:text-lg text-dark-400 max-w-2xl mx-auto mb-10 leading-relaxed">
-          Real commands. Real outputs. Real labs. A structured path from
-          complete beginner to job-ready security professional.
+
+        <p className="text-base sm:text-lg text-dark-400 max-w-xl mx-auto mt-7 leading-relaxed">
+          Enterprise-grade curriculum. Real terminal commands with real outputs. Hands-on labs in isolated environments. Zero to professional.
         </p>
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
-          <Link href="/courses" className="btn-primary text-base w-full sm:w-auto px-8 py-4">
-            Browse Curriculum
+
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mt-10">
+          <Link href="/courses" className="btn-primary w-full sm:w-auto text-sm px-8 py-3.5">
+            Start Curriculum
           </Link>
-          <Link href="/labs" className="btn-secondary text-base w-full sm:w-auto px-8 py-4">
-            Try a Lab
+          <Link href="/labs" className="btn-secondary w-full sm:w-auto text-sm px-8 py-3.5">
+            Explore Labs
           </Link>
         </div>
       </section>
 
-      {/* Features */}
-      <section className="relative z-10 max-w-5xl mx-auto px-6 sm:px-8 pb-20">
-        <div className="grid sm:grid-cols-3 gap-4">
-          <div className="card text-center p-6">
-            <div className="text-3xl mb-3">💻</div>
-            <h3 className="font-bold text-sm mb-1.5">Real Commands</h3>
-            <p className="text-xs text-dark-400 leading-relaxed">Every lesson has actual terminal commands with real outputs. No placeholder content.</p>
-          </div>
-          <div className="card text-center p-6">
-            <div className="text-3xl mb-3">🧪</div>
-            <h3 className="font-bold text-sm mb-1.5">Hands-On Labs</h3>
-            <p className="text-xs text-dark-400 leading-relaxed">Isolated Docker environments to practice attacks and defenses safely.</p>
-          </div>
-          <div className="card text-center p-6">
-            <div className="text-3xl mb-3">📚</div>
-            <h3 className="font-bold text-sm mb-1.5">Structured Path</h3>
-            <p className="text-xs text-dark-400 leading-relaxed">Lessons build on each other in logical order. Zero to professional, step by step.</p>
-          </div>
+      {/* Metrics */}
+      <section className="relative z-10 max-w-4xl mx-auto px-6 sm:px-10 pb-20">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          {[
+            { v: '10', l: 'Modules' },
+            { v: '72', l: 'Lessons' },
+            { v: '10', l: 'Labs' },
+            { v: '50+', l: 'Hours' },
+          ].map((m) => (
+            <div key={m.l} className="card p-4 sm:p-5 text-center">
+              <p className="text-2xl sm:text-3xl font-black text-white">{m.v}</p>
+              <p className="text-[10px] text-dark-500 mt-1 uppercase tracking-[0.15em] font-medium">{m.l}</p>
+            </div>
+          ))}
         </div>
       </section>
 
       {/* Curriculum */}
-      <section className="relative z-10 max-w-5xl mx-auto px-6 sm:px-8 pb-20">
-        <h2 className="text-2xl sm:text-3xl font-bold text-center mb-3">Complete Curriculum</h2>
-        <p className="text-dark-400 text-center mb-10 text-sm">10 modules in proper learning order. Each builds on the previous.</p>
-        <div className="grid sm:grid-cols-2 gap-3">
-          {modules.map((mod) => (
-            <Link key={mod.n} href="/courses" className="card-hover p-4 flex items-center gap-4 group">
-              <div className="w-10 h-10 rounded-xl flex items-center justify-center text-lg border flex-shrink-0"
-                style={{ backgroundColor: mod.c + '10', borderColor: mod.c + '25' }}>
-                {mod.icon}
-              </div>
-              <div className="flex-1 min-w-0">
-                <p className="text-sm font-semibold text-white group-hover:text-cyber-400 transition-colors truncate">
-                  {mod.n}. {mod.t}
-                </p>
-                <p className="text-[10px] text-dark-500 uppercase tracking-wider mt-0.5">{mod.d}</p>
-              </div>
-            </Link>
+      <section className="relative z-10 max-w-4xl mx-auto px-6 sm:px-10 pb-24">
+        <div className="text-center mb-10">
+          <h2 className="text-2xl sm:text-3xl font-bold">Structured Curriculum</h2>
+          <p className="text-dark-500 text-sm mt-2">Beginner to advanced. Each module builds on the previous.</p>
+        </div>
+        <div className="grid gap-2">
+          {[
+            { n: '01', t: 'Introduction to Cybersecurity', c: '#00e5ff' },
+            { n: '02', t: 'Linux Fundamentals', c: '#10b981' },
+            { n: '03', t: 'Computer Networking', c: '#8b5cf6' },
+            { n: '04', t: 'Network Security', c: '#3b82f6' },
+            { n: '05', t: 'Web Application Security', c: '#f59e0b' },
+            { n: '06', t: 'Cryptography', c: '#ec4899' },
+            { n: '07', t: 'Ethical Hacking & Pentesting', c: '#ef4444' },
+            { n: '08', t: 'SOC & Incident Response', c: '#6366f1' },
+            { n: '09', t: 'Cloud & Infrastructure Security', c: '#f97316' },
+            { n: '10', t: 'DevSecOps & Secure Development', c: '#14b8a6' },
+          ].map((mod) => (
+            <div key={mod.n} className="flex items-center gap-4 px-5 py-3.5 rounded-xl border border-white/[0.04] bg-white/[0.02] hover:bg-white/[0.04] transition-colors">
+              <span className="text-[11px] font-mono text-dark-500 w-5">{mod.n}</span>
+              <div className="w-2 h-2 rounded-full flex-shrink-0" style={{ backgroundColor: mod.c }} />
+              <span className="text-sm font-medium text-dark-200">{mod.t}</span>
+            </div>
           ))}
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="relative z-10 border-t border-white/[0.04] py-8">
-        <div className="max-w-5xl mx-auto px-6 sm:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <footer className="relative z-10 border-t border-white/[0.04]">
+        <div className="max-w-5xl mx-auto px-6 sm:px-10 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="text-center sm:text-left">
-            <p className="text-xs text-dark-500">Developed by <span className="text-dark-400 font-medium">Raghavendra N</span></p>
+            <p className="text-[11px] text-dark-400 font-medium">Developed by Raghavendra N</p>
             <p className="text-[10px] text-dark-600 mt-0.5">Code Origin.AI Private Limited</p>
           </div>
-          <Link href="/courses" className="text-xs text-cyber-400 hover:text-cyber-300 transition-colors">
-            Start Learning &rarr;
-          </Link>
+          <div className="flex items-center gap-6">
+            <Link href="/courses" className="text-[11px] text-dark-400 hover:text-white transition-colors">Courses</Link>
+            <Link href="/labs" className="text-[11px] text-dark-400 hover:text-white transition-colors">Labs</Link>
+          </div>
         </div>
       </footer>
     </div>
