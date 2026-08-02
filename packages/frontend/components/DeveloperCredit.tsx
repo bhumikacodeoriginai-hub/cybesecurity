@@ -5,7 +5,7 @@ export default function DeveloperCredit() {
     <div className="relative overflow-hidden rounded-xl border border-neon/10 bg-gradient-to-r from-neon/[0.03] via-dark-900 to-neon/[0.03] p-5 sm:p-6 group hover:border-neon/25 transition-all duration-500">
       {/* Animated scan line */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-neon/40 to-transparent animate-[scan_3s_linear_infinite]" />
+        <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-neon/40 to-transparent animate-[scan_3s_linear_infinite]" style={{ animation: 'scan 3s linear infinite' }} />
       </div>
 
       <div className="relative z-10 flex flex-col sm:flex-row items-center justify-between gap-4">
@@ -35,13 +35,6 @@ export default function DeveloperCredit() {
           <span className="text-[9px] font-mono font-bold text-neon tracking-wider">PRODUCTION READY</span>
         </div>
       </div>
-
-      <style jsx>{`
-        @keyframes scan {
-          0% { transform: translateX(-100%); }
-          100% { transform: translateX(100%); }
-        }
-      `}</style>
     </div>
   );
 }
