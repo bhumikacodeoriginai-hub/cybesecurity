@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 
 const navItems = [
@@ -18,9 +19,7 @@ export default function Sidebar() {
       {/* Mobile Top Bar */}
       <header className="lg:hidden fixed top-0 left-0 right-0 h-14 bg-dark-950/95 backdrop-blur-md border-b border-neon/5 z-50 flex items-center justify-between px-4">
         <Link href="/courses" className="flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-amber-500 to-amber-700 border border-amber-500/30 flex items-center justify-center shadow-lg shadow-amber-500/15">
-            <span className="text-[9px] font-black text-dark-950">CO</span>
-          </div>
+          <Image src="/logo.jpeg" alt="CodeOrigin.ai" width={32} height={32} className="rounded-lg object-contain" priority />
           <div className="leading-tight">
             <span className="font-bold text-xs text-white">CYBERSEC</span>
             <span className="text-[7px] text-dark-400 block font-mono tracking-[0.2em]">by CodeOrigin.ai</span>
@@ -62,9 +61,7 @@ export default function Sidebar() {
       <aside className="hidden lg:flex fixed left-0 top-0 h-full w-64 bg-dark-950 border-r border-neon/5 z-40 flex-col">
         <div className="h-16 flex items-center px-6 border-b border-neon/5">
           <Link href="/courses" className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-amber-500 to-amber-700 border border-amber-500/30 flex items-center justify-center shadow-lg shadow-amber-500/15 animate-glow-pulse" style={{ '--tw-shadow-color': 'rgba(245,158,11,0.15)' } as any}>
-              <span className="text-[10px] font-black text-dark-950">CO</span>
-            </div>
+            <Image src="/logo.jpeg" alt="CodeOrigin.ai" width={36} height={36} className="rounded-lg object-contain" priority />
             <div>
               <span className="font-bold text-sm tracking-tight text-white block">CYBERSEC</span>
               <span className="text-[7px] text-dark-400 font-mono tracking-[0.2em]">by CodeOrigin.ai</span>

@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function LandingPage() {
   return (
@@ -9,9 +10,7 @@ export default function LandingPage() {
       {/* Nav */}
       <nav className="relative z-10 flex items-center justify-between px-6 sm:px-10 py-5 max-w-6xl mx-auto">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-500 to-amber-700 border border-amber-500/30 flex items-center justify-center shadow-lg shadow-amber-500/20">
-            <span className="text-xs font-black text-dark-950">CO</span>
-          </div>
+          <Image src="/logo.jpeg" alt="CodeOrigin.ai" width={40} height={40} className="rounded-xl object-contain" priority />
           <div className="leading-tight">
             <span className="font-bold text-base tracking-tight text-white">CyberSec</span>
             <span className="text-[8px] text-dark-400 block font-mono tracking-[0.2em]">by CodeOrigin.ai</span>
@@ -106,9 +105,7 @@ export default function LandingPage() {
             </div>
             <h3 className="text-xl sm:text-2xl font-black glow-text tracking-tight">RAGHAVENDRA N</h3>
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-amber-500 to-amber-700 border border-amber-500/30 flex items-center justify-center shadow-lg shadow-amber-500/20">
-                <span className="text-[9px] font-black text-dark-950">CO</span>
-              </div>
+              <Image src="/logo.jpeg" alt="CodeOrigin.ai" width={36} height={36} className="rounded-lg object-contain" />
               <div>
                 <span className="text-sm font-bold text-amber-400">CodeOrigin.ai</span>
                 <span className="text-[10px] text-dark-400 block">Private Limited</span>

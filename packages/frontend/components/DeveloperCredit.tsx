@@ -1,5 +1,7 @@
 'use client';
 
+import Image from 'next/image';
+
 export default function DeveloperCredit() {
   return (
     <div className="relative overflow-hidden rounded-xl border border-neon/10 bg-gradient-to-r from-neon/[0.03] via-dark-900 to-neon/[0.03] p-5 sm:p-6 group hover:border-neon/25 transition-all duration-500">
@@ -18,10 +20,8 @@ export default function DeveloperCredit() {
           <h3 className="text-base sm:text-lg font-black tracking-tight">
             <span className="glow-text">RAGHAVENDRA N</span>
           </h3>
-          <div className="flex items-center gap-2 mt-1.5 justify-center sm:justify-start">
-            <div className="w-6 h-6 rounded-md bg-gradient-to-br from-amber-500 to-amber-700 border border-amber-500/30 flex items-center justify-center shadow-sm shadow-amber-500/20">
-              <span className="text-[7px] font-black text-dark-950">CO</span>
-            </div>
+          <div className="flex items-center gap-2.5 mt-1.5 justify-center sm:justify-start">
+            <Image src="/logo.jpeg" alt="CodeOrigin.ai" width={24} height={24} className="rounded object-contain" />
             <span className="text-xs font-bold text-amber-400 tracking-wide">CodeOrigin.ai</span>
             <span className="text-[9px] text-dark-400 font-mono">Pvt Ltd</span>
           </div>
