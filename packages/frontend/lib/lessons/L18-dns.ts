@@ -1,0 +1,66 @@
+export const lesson = {
+  id: 'L18',
+  title: "DNS: The Internet's Phone Book",
+  slug: 'dns-fundamentals',
+  type: 'PRACTICAL',
+  duration: 40,
+  xpReward: 25,
+  difficulty: 'beginner',
+  module: { title: 'Computer Networking', slug: 'computer-networking' },
+  course: { title: 'CyberSec Academy', slug: 'cybersec-academy' },
+  keyTerms: ['DNS', 'Domain Name', 'A Record', 'MX Record', 'NS Record', 'CNAME', 'dig', 'nslookup', 'TTL'],
+  content: [
+    { type: 'heading', content: "DNS: The Internet's Phone Book" },
+    { type: 'paragraph', content: "DNS (Domain Name System) translates human-readable names (google.com) into IP addresses (142.250.80.46). Without DNS, you would need to memorize IP addresses for every website. DNS is also a goldmine for reconnaissance — it reveals an organization's infrastructure." },
+    { type: 'callout', variant: 'info', content: "Analogy: DNS is like your phone's contacts list. You tap 'Mom' instead of dialing 555-0123. DNS translates 'google.com' to 142.250.80.46. Without it, you would need to remember every IP address." },
+    { type: 'heading', level: 2, content: 'How DNS Resolution Works' },
+    { type: 'list', items: [
+      "1. You type google.com in your browser",
+      "2. Browser checks local cache — 'Have I looked this up recently?'",
+      "3. OS checks /etc/hosts — 'Is there a manual override?'",
+      "4. OS asks configured DNS resolver (usually your router or 8.8.8.8)",
+      "5. Resolver queries: Root servers → .com TLD servers → google.com authoritative server",
+      "6. Answer returned: google.com = 142.250.80.46",
+      "7. Result cached at every level for the TTL (Time To Live) duration"
+    ]},
+    { type: 'heading', level: 2, content: 'DNS Record Types' },
+    { type: 'list', items: [
+      "A — Maps hostname to IPv4 address (google.com → 142.250.80.46)",
+      "AAAA — Maps hostname to IPv6 address",
+      "MX — Mail exchange servers (where to deliver email for this domain)",
+      "CNAME — Alias pointing to another hostname (www.example.com → example.com)",
+      "NS — Authoritative nameservers for the domain",
+      "TXT — Arbitrary text (SPF records, domain verification, DKIM)",
+      "PTR — Reverse DNS: IP → hostname",
+      "SOA — Start of Authority (zone admin info, serial number)"
+    ]},
+    { type: 'heading', level: 2, content: 'Querying DNS with dig' },
+    { type: 'command', command: 'dig google.com +short', output: '142.250.80.46', explanation: "dig queries DNS. +short gives just the answer. This is the IP your browser will connect to when you visit google.com." },
+    { type: 'command', command: 'dig google.com MX +short', output: "10 smtp.google.com.\n20 smtp2.google.com.\n30 smtp3.google.com.", explanation: "MX records show mail servers. The number (10, 20, 30) is priority — lower = preferred. Attackers query MX records to find email infrastructure for phishing attacks." },
+    { type: 'command', command: 'dig example.com ANY', output: "example.com.  3600  IN  A      93.184.216.34\nexample.com.  3600  IN  AAAA   2606:2800:220:1:248:1893:25c8:1946\nexample.com.  3600  IN  MX     10 mail.example.com.\nexample.com.  3600  IN  NS     ns1.example.com.\nexample.com.  3600  IN  NS     ns2.example.com.", explanation: "ANY query returns all record types. This gives a complete picture of the domain's infrastructure — IP addresses, mail servers, nameservers. Essential for reconnaissance." },
+    { type: 'command', command: 'cat /etc/resolv.conf', output: "nameserver 192.168.1.1\nnameserver 8.8.8.8", explanation: "This file tells your system which DNS servers to use. 192.168.1.1 is your router, 8.8.8.8 is Google DNS as backup. An attacker who modifies this file can redirect all your DNS queries." },
+    { type: 'heading', level: 2, content: 'DNS Security Implications' },
+    { type: 'callout', variant: 'security', content: "DNS is critical infrastructure — if DNS is compromised, attackers can redirect users to fake websites without changing anything on the real server. DNS attacks include: cache poisoning (return fake IPs), DNS tunneling (exfiltrate data through DNS queries), zone transfer leaks (dump all records), and DNS amplification DDoS." },
+    { type: 'list', items: [
+      "DNS Cache Poisoning — Attacker injects fake records into resolver cache",
+      "DNS Tunneling — Hide data exfiltration inside DNS queries (bypasses most firewalls)",
+      "Zone Transfer — If misconfigured, reveals ALL domain records to anyone who asks",
+      "DNS Amplification DDoS — Small query → large response, used to flood victims",
+      "Typosquatting — Register domains similar to real ones (gooogle.com) for phishing"
+    ]},
+    { type: 'command', command: 'dig axfr @ns1.target.com target.com', output: "; Transfer failed.", explanation: "Zone transfer attempt — would dump ALL DNS records if allowed. A properly configured server refuses this. If it succeeds, the attacker gets a complete map of all subdomains, IPs, and mail servers." },
+    { type: 'heading', level: 2, content: 'Summary' },
+    { type: 'list', items: [
+      "DNS translates names to IPs — essential infrastructure for the internet",
+      "Key record types: A (IPv4), AAAA (IPv6), MX (mail), NS (nameservers), CNAME (alias)",
+      "dig is the primary tool for DNS queries and reconnaissance",
+      "DNS attacks can silently redirect users to malicious servers",
+      "Always check /etc/resolv.conf — modified DNS settings indicate compromise",
+      "Next lesson: Network troubleshooting with ping, traceroute, and netstat"
+    ]},
+  ],
+  navigation: {
+    prev: { title: 'TCP, UDP & the Transport Layer', slug: 'tcp-udp-transport' },
+    next: { title: 'Network Troubleshooting & Diagnostics', slug: 'network-troubleshooting' },
+  },
+};

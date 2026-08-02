@@ -1,154 +1,150 @@
 'use client';
 
 import Link from 'next/link';
+import { useParams } from 'next/navigation';
+import { getModuleBySlug, modules } from '@/lib/curriculum';
 
-// Demo course detail data
-const courseData = {
-  title: 'Introduction to Cybersecurity',
-  description: 'Learn what cybersecurity is, why it matters, and the fundamental concepts every security professional needs to know.',
-  longDescription: 'This comprehensive course provides a solid foundation in cybersecurity. You will learn about the CIA Triad, threats, vulnerabilities, risk management, authentication, authorization, and security controls. By the end, you will have the knowledge to understand the cybersecurity landscape and be ready for more advanced topics.',
-  difficulty: 'BEGINNER',
-  durationHours: 8,
-  path: { title: 'Cybersecurity Foundations', color: '#00d4ff' },
-  skills: ['CIA Triad', 'Threat Analysis', 'Risk Assessment', 'Security Controls', 'Authentication', 'Authorization'],
-  enrolled: 1240,
-  modules: [
-    {
-      id: '1',
-      title: 'What is Cybersecurity?',
-      lessons: [
-        { id: 'l1', title: 'Introduction to Cybersecurity', slug: 'introduction-to-cybersecurity', type: 'THEORY', duration: 20, completed: true },
-        { id: 'l2', title: 'The CIA Triad', slug: 'the-cia-triad', type: 'THEORY', duration: 25, completed: true },
-        { id: 'l3', title: 'Threats, Vulnerabilities, and Risks', slug: 'threats-vulnerabilities-risks', type: 'THEORY', duration: 30, completed: false },
-        { id: 'l4', title: 'Security Controls and Defense', slug: 'security-controls-defense', type: 'THEORY', duration: 25, completed: false },
-      ],
-    },
-    {
-      id: '2',
-      title: 'Authentication & Access Control',
-      lessons: [
-        { id: 'l5', title: 'Authentication Fundamentals', slug: 'authentication-fundamentals', type: 'THEORY', duration: 20, completed: false },
-        { id: 'l6', title: 'Authorization and Access Control', slug: 'authorization-access-control', type: 'THEORY', duration: 25, completed: false },
-      ],
-    },
-  ],
-};
+export default function ModuleDetailPage() {
+  const params = useParams();
+  const slug = params?.slug as string;
+  const mod = getModuleBySlug(slug);
 
-function getLessonIcon(type: string) {
-  switch (type) {
-    case 'THEORY': return '📖';
-    case 'PRACTICAL': return '💻';
-    case 'LAB': return '🧪';
-    case 'QUIZ': return '❓';
-    case 'CHALLENGE': return '🎯';
-    default: return '📄';
+  if (!mod) {
+    return (
+      <div className="text-center py-20 animate-in">
+        <h1 className="text-xl font-bold text-dark-300">Module not found</h1>
+        <Link href="/courses" className="text-neon mt-4 inline-block text-sm font-mono">&larr; BACK</Link>
+      </div>
+    );
   }
-}
 
-export default function CourseDetailPage() {
-  const course = courseData;
-  const totalLessons = course.modules.reduce((sum, m) => sum + m.lessons.length, 0);
-  const completedLessons = course.modules.reduce((sum, m) => sum + m.lessons.filter(l => l.completed).length, 0);
-  const progress = Math.round((completedLessons / totalLessons) * 100);
+  const totalDuration = mod.lessons.reduce((s, l) => s + l.duration, 0);
+  const modIndex = modules.findIndex(m => m.slug === slug);
+  const prevMod = modIndex > 0 ? modules[modIndex - 1] : null;
+  const nextMod = modIndex < modules.length - 1 ? modules[modIndex + 1] : null;
 
   return (
-    <div className="max-w-5xl space-y-8">
+    <div className="max-w-4xl space-y-8 animate-in">
       {/* Breadcrumb */}
-      <nav className="flex items-center gap-2 text-sm text-dark-400">
-        <Link href="/courses" className="hover:text-white transition-colors">Courses</Link>
-        <span>/</span>
-        <span className="text-white">{course.title}</span>
+      <nav className="flex items-center gap-2 text-xs font-mono text-dark-400">
+        <Link href="/courses" className="hover:text-neon transition-colors">COURSES</Link>
+        <span className="text-dark-600">/</span>
+        <span className="text-dark-200">MODULE {String(mod.number).padStart(2, '0')}</span>
       </nav>
 
-      {/* Course Header */}
-      <div className="card">
-        <div className="flex items-center gap-2 mb-3">
-          <div className="w-2 h-2 rounded-full" style={{ backgroundColor: course.path.color }} />
-          <span className="text-sm text-dark-400">{course.path.title}</span>
-          <span className="ml-2 badge-beginner">{course.difficulty}</span>
-        </div>
-
-        <h1 className="text-3xl font-bold mb-3">{course.title}</h1>
-        <p className="text-dark-300 mb-6">{course.longDescription}</p>
-
-        {/* Course Meta */}
-        <div className="flex flex-wrap items-center gap-6 text-sm text-dark-400 mb-6">
-          <span className="flex items-center gap-1">🕐 {course.durationHours} hours</span>
-          <span className="flex items-center gap-1">📚 {course.modules.length} modules</span>
-          <span className="flex items-center gap-1">📝 {totalLessons} lessons</span>
-          <span className="flex items-center gap-1">👥 {course.enrolled.toLocaleString()} enrolled</span>
-        </div>
-
-        {/* Skills */}
-        <div className="flex flex-wrap gap-2 mb-6">
-          {course.skills.map((skill) => (
-            <span key={skill} className="px-3 py-1 bg-dark-700 border border-dark-600 rounded-full text-xs text-dark-200">
-              {skill}
-            </span>
-          ))}
-        </div>
-
-        {/* Progress */}
-        <div className="flex items-center gap-4">
-          <div className="flex-1">
-            <div className="flex justify-between text-sm mb-1">
-              <span className="text-dark-300">{completedLessons}/{totalLessons} lessons completed</span>
-              <span className="text-cyber-400 font-medium">{progress}%</span>
+      {/* Module Header */}
+      <div className="relative overflow-hidden rounded-xl border p-6 sm:p-8" style={{ borderColor: mod.color + '20', background: `linear-gradient(135deg, ${mod.color}05, transparent)` }}>
+        <div className="absolute top-0 right-0 w-40 h-40 rounded-full blur-3xl opacity-20 pointer-events-none" style={{ background: mod.color }} />
+        <div className="relative z-10 flex items-start gap-5">
+          <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl flex items-center justify-center text-3xl sm:text-4xl border flex-shrink-0"
+            style={{ borderColor: mod.color + '30', background: mod.color + '10' }}>
+            {mod.icon}
+          </div>
+          <div className="flex-1 min-w-0">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="text-[9px] font-mono text-dark-400 tracking-[0.2em]">MODULE {String(mod.number).padStart(2, '0')}</span>
+              <span className={`badge-${mod.difficulty.toLowerCase()}`}>{mod.difficulty}</span>
             </div>
-            <div className="progress-bar">
-              <div className="progress-bar-fill" style={{ width: `${progress}%` }} />
+            <h1 className="text-2xl sm:text-3xl font-black tracking-tight">{mod.title}</h1>
+            <p className="text-sm text-dark-300 mt-2 leading-relaxed max-w-xl">{mod.description}</p>
+            <div className="flex flex-wrap gap-5 mt-5 text-xs font-mono text-dark-400">
+              <span>{mod.lessons.length} lessons</span>
+              <span>{Math.floor(totalDuration / 60)}h {totalDuration % 60}m</span>
+              {mod.lab && <span className="text-purple-400">+ Interactive Lab</span>}
             </div>
           </div>
-          <button className="btn-primary text-sm">Continue Learning</button>
         </div>
       </div>
 
-      {/* Modules & Lessons */}
-      <div className="space-y-4">
-        <h2 className="text-xl font-semibold">Course Content</h2>
+      {/* Lessons */}
+      <div>
+        <div className="flex items-center gap-3 mb-5">
+          <div className="h-px flex-1 bg-gradient-to-r from-neon/10 to-transparent" />
+          <span className="text-[9px] font-mono text-dark-400 tracking-[0.3em]">LESSONS</span>
+          <div className="h-px flex-1 bg-gradient-to-l from-neon/10 to-transparent" />
+        </div>
 
-        {course.modules.map((module, idx) => (
-          <div key={module.id} className="card">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-8 h-8 bg-dark-700 rounded-lg flex items-center justify-center text-sm font-medium text-dark-300">
-                {idx + 1}
-              </div>
-              <div>
-                <h3 className="font-semibold">{module.title}</h3>
-                <p className="text-xs text-dark-400">
-                  {module.lessons.length} lessons · {module.lessons.reduce((s, l) => s + l.duration, 0)} min
-                </p>
-              </div>
-            </div>
+        <div className="space-y-2">
+          {mod.lessons.map((lesson, idx) => (
+            <Link key={lesson.id} href={`/lessons/${lesson.slug}`}>
+              <div className="group flex items-center gap-4 p-4 sm:p-5 rounded-xl border border-dark-600 bg-dark-900 hover:border-neon/20 hover:bg-dark-800 transition-all duration-200 hover:shadow-[0_4px_20px_rgba(160,255,0,0.03)]">
+                {/* Number */}
+                <div className="w-9 h-9 rounded-lg bg-dark-800 border border-dark-500 group-hover:border-neon/20 group-hover:bg-neon/5 flex items-center justify-center transition-all duration-200 flex-shrink-0">
+                  <span className="text-[10px] font-mono font-bold text-dark-300 group-hover:text-neon transition-colors">{String(idx + 1).padStart(2, '0')}</span>
+                </div>
 
-            <div className="space-y-1 ml-11">
-              {module.lessons.map((lesson) => (
-                <Link
-                  key={lesson.id}
-                  href={`/lessons/${lesson.slug}`}
-                  className="flex items-center gap-3 p-3 rounded-lg hover:bg-dark-700/50 transition-colors group"
-                >
-                  <span className="text-lg">{getLessonIcon(lesson.type)}</span>
-                  <div className="flex-1">
-                    <p className={`text-sm ${lesson.completed ? 'text-dark-400' : 'text-white'} group-hover:text-cyber-400 transition-colors`}>
-                      {lesson.title}
-                    </p>
-                    <p className="text-xs text-dark-500">{lesson.duration} min · {lesson.type}</p>
-                  </div>
-                  {lesson.completed ? (
-                    <svg className="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                    </svg>
-                  ) : (
-                    <svg className="w-5 h-5 text-dark-600 group-hover:text-cyber-400 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                    </svg>
-                  )}
-                </Link>
-              ))}
-            </div>
+                {/* Type badge */}
+                <div className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 text-sm ${lesson.type === 'PRACTICAL' ? 'bg-green-500/10 border border-green-500/20' : lesson.type === 'LAB' ? 'bg-purple-500/10 border border-purple-500/20' : 'bg-blue-500/10 border border-blue-500/20'}`}>
+                  {lesson.type === 'PRACTICAL' ? '💻' : lesson.type === 'LAB' ? '🧪' : '📖'}
+                </div>
+
+                {/* Content */}
+                <div className="flex-1 min-w-0">
+                  <h3 className="text-sm font-semibold text-white group-hover:text-neon transition-colors truncate">{lesson.title}</h3>
+                  <p className="text-[11px] text-dark-400 mt-0.5 truncate hidden sm:block">{lesson.description}</p>
+                </div>
+
+                {/* Duration + Arrow */}
+                <div className="flex items-center gap-3 flex-shrink-0">
+                  <span className="text-[10px] font-mono text-dark-500 hidden sm:block">{lesson.duration}m</span>
+                  <svg className="w-3.5 h-3.5 text-dark-500 group-hover:text-neon group-hover:translate-x-0.5 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
+                  </svg>
+                </div>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </div>
+
+      {/* Lab */}
+      {mod.lab && (
+        <div>
+          <div className="flex items-center gap-3 mb-5">
+            <div className="h-px flex-1 bg-gradient-to-r from-purple-500/10 to-transparent" />
+            <span className="text-[9px] font-mono text-dark-400 tracking-[0.3em]">INTERACTIVE LAB</span>
+            <div className="h-px flex-1 bg-gradient-to-l from-purple-500/10 to-transparent" />
           </div>
-        ))}
+
+          <Link href={`/labs/${mod.lab.slug}`}>
+            <div className="group relative overflow-hidden rounded-xl border border-purple-500/15 bg-gradient-to-br from-purple-500/5 to-transparent p-6 hover:border-purple-500/30 transition-all duration-300 hover:shadow-[0_0_30px_rgba(168,85,247,0.05)]">
+              <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-purple-500/0 to-transparent group-hover:via-purple-500/40 transition-all duration-500" />
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center flex-shrink-0 text-xl group-hover:scale-105 transition-transform">🧪</div>
+                <div className="flex-1">
+                  <h3 className="font-bold text-white group-hover:text-purple-300 transition-colors">{mod.lab.title}</h3>
+                  <p className="text-xs text-dark-300 mt-1.5 leading-relaxed">{mod.lab.description}</p>
+                  <div className="flex flex-wrap items-center gap-4 mt-3 text-[10px] font-mono text-dark-400">
+                    <span>{mod.lab.duration} MIN</span>
+                    <span>{mod.lab.objectives.length} OBJECTIVES</span>
+                    <span>{mod.lab.steps?.length || mod.lab.tools.length} STEPS</span>
+                  </div>
+                  <div className="flex flex-wrap gap-1.5 mt-3">
+                    {mod.lab.tools.map(tool => (
+                      <span key={tool} className="px-2 py-0.5 bg-dark-800 border border-purple-500/10 rounded text-[9px] font-mono text-purple-300/70">{tool}</span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Link>
+        </div>
+      )}
+
+      {/* Module Navigation */}
+      <div className="flex items-center justify-between pt-6 border-t border-dark-700">
+        {prevMod ? (
+          <Link href={`/courses/${prevMod.slug}`} className="flex items-center gap-2 text-dark-400 hover:text-neon transition-colors text-xs font-mono group">
+            <svg className="w-3.5 h-3.5 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
+            <span className="truncate max-w-[150px] sm:max-w-[250px]">{prevMod.title}</span>
+          </Link>
+        ) : <div />}
+        {nextMod ? (
+          <Link href={`/courses/${nextMod.slug}`} className="flex items-center gap-2 text-neon hover:text-neon-50 transition-colors text-xs font-mono group">
+            <span className="truncate max-w-[150px] sm:max-w-[250px]">{nextMod.title}</span>
+            <svg className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+          </Link>
+        ) : <div />}
       </div>
     </div>
   );
