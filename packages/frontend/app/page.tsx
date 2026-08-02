@@ -9,12 +9,12 @@ export default function LandingPage() {
       {/* Nav */}
       <nav className="relative z-10 flex items-center justify-between px-6 sm:px-10 py-5 max-w-6xl mx-auto">
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-md border border-neon/30 bg-neon/10 flex items-center justify-center">
-            <span className="terminal-text text-sm font-bold">CS</span>
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-500 to-amber-700 border border-amber-500/30 flex items-center justify-center shadow-lg shadow-amber-500/20">
+            <span className="text-xs font-black text-dark-950">CO</span>
           </div>
-          <div>
-            <span className="font-bold text-sm tracking-tight text-white">CYBERSEC</span>
-            <span className="text-[8px] text-dark-300 block font-mono tracking-[0.3em]">ACADEMY</span>
+          <div className="leading-tight">
+            <span className="font-bold text-base tracking-tight text-white">CyberSec</span>
+            <span className="text-[8px] text-dark-400 block font-mono tracking-[0.2em]">by CodeOrigin.ai</span>
           </div>
         </div>
         <Link href="/courses" className="btn-primary text-xs px-4 py-2">
@@ -105,12 +105,14 @@ export default function LandingPage() {
               <span className="text-[9px] font-mono text-dark-400 tracking-[0.3em]">DEVELOPED BY</span>
             </div>
             <h3 className="text-xl sm:text-2xl font-black glow-text tracking-tight">RAGHAVENDRA N</h3>
-            <div className="flex items-center gap-2">
-              <div className="w-6 h-6 rounded-md bg-neon/10 border border-neon/20 flex items-center justify-center">
-                <span className="text-[8px] font-mono font-bold text-neon">CO</span>
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-amber-500 to-amber-700 border border-amber-500/30 flex items-center justify-center shadow-lg shadow-amber-500/20">
+                <span className="text-[9px] font-black text-dark-950">CO</span>
               </div>
-              <span className="text-sm font-bold text-dark-200">CODE ORIGIN.AI</span>
-              <span className="text-xs text-dark-400 font-mono">PRIVATE LIMITED</span>
+              <div>
+                <span className="text-sm font-bold text-amber-400">CodeOrigin.ai</span>
+                <span className="text-[10px] text-dark-400 block">Private Limited</span>
+              </div>
             </div>
             <div className="flex items-center gap-6 mt-4">
               <Link href="/courses" className="text-[10px] font-mono text-dark-300 hover:text-neon transition-colors tracking-wider">COURSES</Link>

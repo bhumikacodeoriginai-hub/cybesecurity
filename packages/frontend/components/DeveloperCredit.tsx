@@ -19,11 +19,11 @@ export default function DeveloperCredit() {
             <span className="glow-text">RAGHAVENDRA N</span>
           </h3>
           <div className="flex items-center gap-2 mt-1.5 justify-center sm:justify-start">
-            <div className="w-5 h-5 rounded bg-neon/10 border border-neon/20 flex items-center justify-center">
-              <span className="text-[8px] font-mono font-bold text-neon">CO</span>
+            <div className="w-6 h-6 rounded-md bg-gradient-to-br from-amber-500 to-amber-700 border border-amber-500/30 flex items-center justify-center shadow-sm shadow-amber-500/20">
+              <span className="text-[7px] font-black text-dark-950">CO</span>
             </div>
-            <span className="text-xs font-semibold text-dark-200 tracking-wide">CODE ORIGIN.AI</span>
-            <span className="text-[9px] text-dark-400 font-mono">PVT LTD</span>
+            <span className="text-xs font-bold text-amber-400 tracking-wide">CodeOrigin.ai</span>
+            <span className="text-[9px] text-dark-400 font-mono">Pvt Ltd</span>
           </div>
         </div>
 

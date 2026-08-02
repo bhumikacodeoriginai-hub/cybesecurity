@@ -18,10 +18,13 @@ export default function Sidebar() {
       {/* Mobile Top Bar */}
       <header className="lg:hidden fixed top-0 left-0 right-0 h-14 bg-dark-950/95 backdrop-blur-md border-b border-neon/5 z-50 flex items-center justify-between px-4">
         <Link href="/courses" className="flex items-center gap-2.5">
-          <div className="w-7 h-7 rounded border border-neon/30 bg-neon/10 flex items-center justify-center">
-            <span className="terminal-text text-[10px] font-bold">CS</span>
+          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-amber-500 to-amber-700 border border-amber-500/30 flex items-center justify-center shadow-lg shadow-amber-500/15">
+            <span className="text-[9px] font-black text-dark-950">CO</span>
           </div>
-          <span className="font-bold text-xs tracking-tight text-white">CYBERSEC</span>
+          <div className="leading-tight">
+            <span className="font-bold text-xs text-white">CYBERSEC</span>
+            <span className="text-[7px] text-dark-400 block font-mono tracking-[0.2em]">by CodeOrigin.ai</span>
+          </div>
         </Link>
         <button onClick={() => setOpen(!open)} className="w-8 h-8 flex items-center justify-center rounded border border-dark-600 hover:border-neon/30 transition-colors" aria-label="Menu">
           {open ? (
@@ -50,7 +53,7 @@ export default function Sidebar() {
           <div className="absolute bottom-6 left-6 right-6 p-4 rounded-md border border-neon/10 bg-neon/5">
             <p className="text-[9px] font-mono text-dark-300 tracking-wider">DEVELOPED BY</p>
             <p className="text-[11px] font-mono text-neon/80 mt-1">RAGHAVENDRA N</p>
-            <p className="text-[9px] font-mono text-dark-400 mt-0.5">CODE ORIGIN.AI PVT LTD</p>
+            <p className="text-[9px] font-mono text-amber-400/70 mt-0.5">CodeOrigin.ai Pvt Ltd</p>
           </div>
         </div>
       )}
@@ -59,12 +62,12 @@ export default function Sidebar() {
       <aside className="hidden lg:flex fixed left-0 top-0 h-full w-64 bg-dark-950 border-r border-neon/5 z-40 flex-col">
         <div className="h-16 flex items-center px-6 border-b border-neon/5">
           <Link href="/courses" className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-md border border-neon/30 bg-neon/10 flex items-center justify-center animate-glow-pulse">
-              <span className="terminal-text text-xs font-bold">CS</span>
+            <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-amber-500 to-amber-700 border border-amber-500/30 flex items-center justify-center shadow-lg shadow-amber-500/15 animate-glow-pulse" style={{ '--tw-shadow-color': 'rgba(245,158,11,0.15)' } as any}>
+              <span className="text-[10px] font-black text-dark-950">CO</span>
             </div>
             <div>
               <span className="font-bold text-sm tracking-tight text-white block">CYBERSEC</span>
-              <span className="text-[8px] text-dark-300 font-mono tracking-[0.3em]">ACADEMY</span>
+              <span className="text-[7px] text-dark-400 font-mono tracking-[0.2em]">by CodeOrigin.ai</span>
             </div>
           </Link>
         </div>
@@ -88,7 +91,7 @@ export default function Sidebar() {
           <div className="px-3 py-3">
             <p className="text-[8px] font-mono text-dark-400 tracking-[0.2em]">DEVELOPED BY</p>
             <p className="text-[10px] font-mono text-neon/70 mt-1.5">RAGHAVENDRA N</p>
-            <p className="text-[8px] font-mono text-dark-400 mt-0.5">CODE ORIGIN.AI PVT LTD</p>
+            <p className="text-[8px] font-mono text-amber-400/60 mt-0.5">CodeOrigin.ai Pvt Ltd</p>
           </div>
         </div>
       </aside>
