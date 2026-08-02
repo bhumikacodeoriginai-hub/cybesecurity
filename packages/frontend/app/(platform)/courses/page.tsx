@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { modules, totalLessons, totalLabs } from '@/lib/curriculum';
+import DeveloperCredit from '@/components/DeveloperCredit';
 
 export default function CoursesPage() {
   return (
@@ -103,12 +104,8 @@ export default function CoursesPage() {
         ))}
       </div>
 
-      {/* Footer */}
-      <div className="text-center pt-6 border-t border-neon/5">
-        <p className="text-[9px] font-mono text-dark-400 tracking-wider">
-          DEVELOPED BY <span className="text-neon/60">RAGHAVENDRA N</span> // CODE ORIGIN.AI PVT LTD
-        </p>
-      </div>
+      {/* Developer Credit */}
+      <DeveloperCredit />
     </div>
   );
 }

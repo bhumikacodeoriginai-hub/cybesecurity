@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { allLabs } from '@/lib/labs';
+import DeveloperCredit from '@/components/DeveloperCredit';
 
 export default function LabsPage() {
   return (
@@ -59,11 +60,8 @@ export default function LabsPage() {
         ))}
       </div>
 
-      <div className="text-center pt-4 border-t border-neon/5">
-        <p className="text-[9px] font-mono text-dark-400 tracking-wider">
-          DEVELOPED BY <span className="text-neon/60">RAGHAVENDRA N</span> // CODE ORIGIN.AI PVT LTD
-        </p>
-      </div>
+      {/* Developer Credit */}
+      <DeveloperCredit />
     </div>
   );
 }

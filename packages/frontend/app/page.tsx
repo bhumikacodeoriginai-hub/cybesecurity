@@ -97,15 +97,25 @@ export default function LandingPage() {
       </section>
 
       {/* Footer */}
-      <footer className="relative z-10 border-t border-neon/5 py-8">
-        <div className="max-w-4xl mx-auto px-6 sm:px-10 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="text-center sm:text-left">
-            <p className="text-[10px] font-mono text-dark-300">DEVELOPED BY <span className="text-neon/80">RAGHAVENDRA N</span></p>
-            <p className="text-[9px] font-mono text-dark-400 mt-0.5">CODE ORIGIN.AI PRIVATE LIMITED</p>
-          </div>
-          <div className="flex items-center gap-4">
-            <Link href="/courses" className="text-[10px] font-mono text-dark-300 hover:text-neon transition-colors">COURSES</Link>
-            <Link href="/labs" className="text-[10px] font-mono text-dark-300 hover:text-neon transition-colors">LABS</Link>
+      <footer className="relative z-10 border-t border-neon/8 py-10">
+        <div className="max-w-4xl mx-auto px-6 sm:px-10">
+          <div className="flex flex-col items-center text-center gap-4">
+            <div className="flex items-center gap-2">
+              <div className="w-1.5 h-1.5 rounded-full bg-neon animate-glow-pulse" />
+              <span className="text-[9px] font-mono text-dark-400 tracking-[0.3em]">DEVELOPED BY</span>
+            </div>
+            <h3 className="text-xl sm:text-2xl font-black glow-text tracking-tight">RAGHAVENDRA N</h3>
+            <div className="flex items-center gap-2">
+              <div className="w-6 h-6 rounded-md bg-neon/10 border border-neon/20 flex items-center justify-center">
+                <span className="text-[8px] font-mono font-bold text-neon">CO</span>
+              </div>
+              <span className="text-sm font-bold text-dark-200">CODE ORIGIN.AI</span>
+              <span className="text-xs text-dark-400 font-mono">PRIVATE LIMITED</span>
+            </div>
+            <div className="flex items-center gap-6 mt-4">
+              <Link href="/courses" className="text-[10px] font-mono text-dark-300 hover:text-neon transition-colors tracking-wider">COURSES</Link>
+              <Link href="/labs" className="text-[10px] font-mono text-dark-300 hover:text-neon transition-colors tracking-wider">LABS</Link>
+            </div>
           </div>
         </div>
       </footer>
