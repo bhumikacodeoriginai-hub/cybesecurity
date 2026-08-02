@@ -19,7 +19,7 @@ export default function Sidebar() {
       {/* Mobile Top Bar */}
       <header className="lg:hidden fixed top-0 left-0 right-0 h-14 bg-dark-950/95 backdrop-blur-md border-b border-neon/5 z-50 flex items-center justify-between px-4">
         <Link href="/courses" className="flex items-center gap-2.5">
-          <Image src="/logo.svg" alt="CodeOrigin.ai" width={32} height={32} className="rounded-lg object-contain" priority />
+          <Image src="/logo.jpeg" alt="CodeOrigin.ai" width={32} height={32} className="rounded-lg object-contain" priority />
           <div className="leading-tight">
             <span className="font-bold text-xs text-white">CYBERSEC</span>
             <span className="text-[7px] text-dark-400 block font-mono tracking-[0.2em]">by CodeOrigin.ai</span>
@@ -61,7 +61,7 @@ export default function Sidebar() {
       <aside className="hidden lg:flex fixed left-0 top-0 h-full w-64 bg-dark-950 border-r border-neon/5 z-40 flex-col">
         <div className="h-16 flex items-center px-6 border-b border-neon/5">
           <Link href="/courses" className="flex items-center gap-3">
-            <Image src="/logo.svg" alt="CodeOrigin.ai" width={36} height={36} className="rounded-lg object-contain" priority />
+            <Image src="/logo.jpeg" alt="CodeOrigin.ai" width={36} height={36} className="rounded-lg object-contain" priority />
             <div>
               <span className="font-bold text-sm tracking-tight text-white block">CYBERSEC</span>
               <span className="text-[7px] text-dark-400 font-mono tracking-[0.2em]">by CodeOrigin.ai</span>

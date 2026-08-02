@@ -3,12 +3,12 @@
 import Image from 'next/image';
 
 // CodeOrigin.ai Logo Component
-// Logo file must be placed at: packages/frontend/public/logo.svg
+// Logo file must be placed at: packages/frontend/public/logo.jpeg
 
 export function LogoMark({ size = 32 }: { size?: number }) {
   return (
     <Image
-      src="/logo.svg"
+      src="/logo.jpeg"
       alt="CodeOrigin.ai"
       width={size}
       height={size}
@@ -24,7 +24,7 @@ export function LogoFull({ size = 'default' }: { size?: 'small' | 'default' | 'l
 
   return (
     <Image
-      src="/logo.svg"
+      src="/logo.jpeg"
       alt="CodeOrigin.ai"
       width={w}
       height={h}
